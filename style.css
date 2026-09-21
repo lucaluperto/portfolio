@@ -254,6 +254,7 @@ svg.chart path.bar.grow-x { transform-box: fill-box; transform-origin: left;
 /* logo + portrait */
 header.site a.name { display: inline-flex; align-items: center; gap: 9px; }
 header.site .mark { width: 22px; height: 22px; flex: none; }
-.portrait { width: 100%; max-width: 230px; height: auto; border-radius: 3px; display: block;
-  margin: 0 0 22px; filter: grayscale(1) contrast(1.02); }
-@media (max-width: 760px) { .portrait { max-width: 160px; } }
+.portrait { width: 100%; max-width: 260px; height: auto; display: block; margin: -10px 0 18px -10px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 74%, transparent 99%);
+  mask-image: linear-gradient(to bottom, #000 74%, transparent 99%); }
+@media (max-width: 760px) { .portrait { max-width: 190px; margin-left: 0; } }
