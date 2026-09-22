@@ -1,5 +1,9 @@
-"""Builds the static portfolio site. Run: python3 build.py
-Charts are generated from data/*.csv as inline SVG, so the site has no JS dependencies."""
+"""Legacy generator from the portfolio's previous directory structure.
+
+The production HTML files in the repository root are now the source of truth.
+Do not run this script on the production branch until its templates and paths
+have been refactored to match the current site.
+"""
 import csv, html
 from collections import OrderedDict
 

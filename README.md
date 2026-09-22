@@ -11,12 +11,10 @@ Case studies in growth and digital marketing, published at **[lucaluperto.it](ht
 
 ## How it's built
 
-Plain static HTML and CSS, hosted on GitHub Pages. Charts are generated as inline SVG from the raw data in [`data/`](data/) by `build.py`:
+Plain static HTML, CSS and JavaScript hosted on GitHub Pages. The production pages, styles, scripts, images and CSV datasets currently live in the repository root.
 
-```
-python3 build.py
-```
+The HTML files are the current source of truth. `build.py` is a legacy generator from an earlier directory structure and must not be run against the production branch until it has been refactored; it still expects `data/` and `assets/` directories that no longer exist.
 
-The Comedy Week dataset (`data/comedy-week.csv`) has one row per collaboration: edition, creator, views per channel, link to the video.
+The Comedy Week dataset (`comedy-week.csv`) has one row per collaboration: edition, creator, views per channel and link to the video.
 
 Contact: lucaluperto99@gmail.com · [LinkedIn](https://www.linkedin.com/in/lupertoluca)

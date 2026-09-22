@@ -38,12 +38,12 @@
 
   // elements that fade+rise once, with a small stagger inside a group
   var groups = [
-    ['.hero h1, .hero .lede, .hero .avail', 70],
+    ['.hero h1, .hero .lede, .hero .cta-links, .hero .avail', 70],
     ['.gal .tile', 60],
     ['.num-row .num', 80],
     ['.case', 0],
     ['.eyebrow, article h1, .meta, article > .lede', 60],
-    ['.stats .stat', 60],
+    ['.case-summary, .stats .stat', 60],
     ['figure', 0],
     ['.reels .reel', 45],
     ['.works .work', 60],
