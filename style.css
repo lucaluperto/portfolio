@@ -297,3 +297,32 @@ figure.photo figcaption { font-size: 14px; color: var(--dim); margin-top: 10px; 
 figure.photo.two > div { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 figure.photo.two img { border-radius: 3px; }
 @media (max-width: 620px) { figure.photo.two > div { grid-template-columns: 1fr; } }
+
+/* ---------- mobile polish ---------- */
+@media (max-width: 640px) {
+  .w { padding: 0 18px; }
+  header.site .w { flex-wrap: wrap; gap: 6px 14px; padding: 16px 18px 12px; }
+  header.site a.name { font-size: 15px; }
+  header.site nav { width: 100%; display: flex; flex-wrap: wrap; gap: 0 16px; font-size: 13px; }
+  header.site nav a { margin-left: 0; }
+  .hero { padding: 18px 0 22px; }
+  .hero-name { font-size: 13px; margin-bottom: 10px; }
+  .hero-name::before { display: none; }
+  h1 { font-size: 30px; letter-spacing: -0.03em; max-width: none; }
+  .hero .lede { font-size: 17px; margin-top: 12px; }
+  .avail { font-size: 11px; padding: 6px 12px; margin-top: 16px; }
+  h2 { font-size: 21px; margin: 40px 0 10px; }
+  h3 { font-size: 18px; }
+  .lede { font-size: 17px; }
+  .insight { font-size: 16px; padding-left: 16px; }
+  .num-row { margin-top: 28px; padding: 20px 0; }
+  .stats { gap: 16px; }
+  .cta { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .cta p { font-size: 17px; }
+  .cta-links, .contact-links { width: 100%; }
+  .btn { width: 100%; text-align: center; }
+  .next { flex-wrap: wrap; gap: 10px 18px; font-size: 14px; }
+  footer.site .w { flex-direction: column; gap: 6px; padding: 18px 18px 40px; }
+  table { font-size: 13px; }
+  th, td { padding: 6px; }
+}
