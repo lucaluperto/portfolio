@@ -291,3 +291,9 @@ header.site .mark { width: 22px; height: 22px; flex: none; }
   color: var(--accent); }
 .reel .go, .work-t .go { margin-top: 8px; }
 article .sector { margin-top: -6px !important; }
+figure.photo { margin: 26px 0 30px; }
+figure.photo img { width: 100%; height: auto; border-radius: 3px; display: block; }
+figure.photo figcaption { font-size: 14px; color: var(--dim); margin-top: 10px; font-weight: 400; }
+figure.photo.two > div { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+figure.photo.two img { border-radius: 3px; }
+@media (max-width: 620px) { figure.photo.two > div { grid-template-columns: 1fr; } }
