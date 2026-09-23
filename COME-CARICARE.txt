@@ -1,0 +1,85 @@
+COME CARICARE QUESTI FILE SU GITHUB
+====================================
+
+Sono 10 file. Vanno tutti nella cartella principale del repo
+(quella dove ci sono già index.html e style.css), sovrascrivendo
+quelli che ci sono.
+
+
+PASSO 1
+Apri github.com e vai sul tuo repository del portfolio.
+
+PASSO 2
+In alto clicca il pulsante "Add file", poi "Upload files".
+
+PASSO 3
+Trascina dentro TUTTI e 10 i file di questa cartella insieme.
+(Non trascinare la cartella: apri la cartella, seleziona i file,
+e trascina quelli. GitHub non gestisce bene le cartelle.)
+Non caricare questo file COME-CARICARE.txt — solo gli altri 10.
+
+PASSO 4
+Scendi in fondo alla pagina. Nel riquadro scrivi:
+    Analytics PostHog + responsive + SEO
+Poi clicca il pulsante verde "Commit changes".
+
+PASSO 5
+Aspetta 1-2 minuti: GitHub Pages deve ripubblicare il sito.
+
+
+CONTROLLO FINALE
+================
+1. Apri lucaluperto.it in una FINESTRA ANONIMA del browser
+   (importante: senza estensioni e senza adblocker, altrimenti
+   PostHog viene bloccato e sembra che non funzioni).
+
+2. Vai su PostHog, menu a sinistra, voce "Activity".
+
+3. Entro pochi secondi deve comparire una riga "$pageview".
+   Se compare, è fatto.
+
+4. Prova anche a cliccare "Download CV" sul sito: in Activity
+   deve comparire l'evento "cv_download".
+
+
+COSA È CAMBIATO
+===============
+Files nuovi o modificati:
+
+  build.py            Aggiunto lo snippet PostHog nell'head di tutte
+                      le pagine, più una riga sulla privacy nel footer.
+                      IMPORTANTE: va caricato anche questo, altrimenti
+                      la prossima rigenerazione cancella tutto.
+
+  tip.js              Aggiunti gli eventi: cv_download, contact_click,
+                      outbound_click, reel_click, case_open, scroll_depth.
+
+  le 5 pagine .html   Rigenerate con lo snippet dentro.
+
+  style.css           Questa è la versione responsive che era rimasta
+  sitemap.xml         da caricare. Con questo upload vanno online anche
+  robots.txt          il fix mobile e i file per l'indicizzazione Google.
+
+
+GLI EVENTI CHE VEDRAI IN POSTHOG
+================================
+  $pageview        ogni visita a una pagina
+  cv_download      qualcuno ha scaricato il CV
+  contact_click    qualcuno ha cliccato la tua email
+  outbound_click   qualcuno è andato sul tuo LinkedIn
+  reel_click       qualcuno ha aperto un video (IG, YouTube, TikTok)
+  case_open        qualcuno ha aperto un case study
+  scroll_depth     quanto in basso è arrivato (25 / 50 / 75 / 100%)
+
+L'ultimo è il più utile: su una pagina lunga come Azzurro ti dice
+se la leggono davvero o se la aprono e basta.
+
+
+LE UTM PER LE CANDIDATURE
+=========================
+Quando mandi il sito con una candidatura, aggiungi i parametri:
+
+  https://lucaluperto.it/?utm_source=application&utm_medium=cv&utm_campaign=NOMEAZIENDA
+
+PostHog li raccoglie da solo. Poi in "Web analytics" filtri per
+utm_campaign e sai quale azienda ha aperto il portfolio, e quando.

@@ -38,12 +38,12 @@
 
   // elements that fade+rise once, with a small stagger inside a group
   var groups = [
-    ['.hero h1, .hero .lede, .hero .cta-links, .hero .avail', 70],
+    ['.hero h1, .hero .lede, .hero .avail', 70],
     ['.gal .tile', 60],
     ['.num-row .num', 80],
     ['.case', 0],
     ['.eyebrow, article h1, .meta, article > .lede', 60],
-    ['.case-summary, .stats .stat', 60],
+    ['.stats .stat', 60],
     ['figure', 0],
     ['.reels .reel', 45],
     ['.works .work', 60],
@@ -107,4 +107,49 @@
     }
     requestAnimationFrame(frame);
   }
+})();
+
+/* ---------- analytics: gli eventi che contano ---------- */
+(function () {
+  function cap(name, props) {
+    if (window.posthog && typeof window.posthog.capture === 'function') {
+      window.posthog.capture(name, props || {});
+    }
+  }
+
+  var pageName = (location.pathname.split('/').pop() || 'index.html');
+
+  // click con un nome leggibile, invece del solo autocapture
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/\.pdf($|\?)/i.test(href)) {
+      cap('cv_download', { file: href, from: pageName });
+    } else if (href.indexOf('mailto:') === 0) {
+      cap('contact_click', { channel: 'email', from: pageName });
+    } else if (href.indexOf('linkedin.com') > -1) {
+      cap('outbound_click', { destination: 'linkedin', from: pageName });
+    } else if (href.indexOf('instagram.com') > -1 || href.indexOf('youtube.com') > -1 ||
+               href.indexOf('youtu.be') > -1 || href.indexOf('tiktok.com') > -1) {
+      cap('reel_click', { url: href, from: pageName });
+    } else if (/\.html($|#|\?)/i.test(href) && href.indexOf('index.html') !== 0) {
+      cap('case_open', { to: href.split('#')[0], from: pageName });
+    }
+  });
+
+  // profondità di lettura: dice se il caso viene letto o solo aperto
+  var marks = [25, 50, 75, 100], seen = {};
+  window.addEventListener('scroll', function () {
+    var h = document.body.scrollHeight - window.innerHeight;
+    if (h <= 0) return;
+    var p = Math.round(window.scrollY / h * 100);
+    for (var i = 0; i < marks.length; i++) {
+      var m = marks[i];
+      if (p >= m && !seen[m]) {
+        seen[m] = 1;
+        cap('scroll_depth', { percent: m, page: pageName });
+      }
+    }
+  }, { passive: true });
 })();
