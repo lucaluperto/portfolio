@@ -1,85 +1,75 @@
-COME CARICARE QUESTI FILE SU GITHUB
+HOME + PELLE AGENZIA — COME CARICARE
 ====================================
 
-Sono 10 file. Vanno tutti nella cartella principale del repo
-(quella dove ci sono già index.html e style.css), sovrascrivendo
-quelli che ci sono.
+⚠️ QUESTO PACCHETTO SOSTITUISCE I DUE PRECEDENTI.
+Se non hai ancora caricato "grafica-nuova.zip" o "architettura-4.zip",
+NON caricarli: carica solo questo. Contiene tutto, PostHog compreso.
+
+10 file (le due anteprima-*.png NON vanno caricate):
+
+  build.py  style.css  tip.js
+  index.html  azzurro-ads.html  comedy-week.html
+  italy-food-prn.html  kolms-creative.html
+  sitemap.xml  robots.txt
+
+github.com -> tuo repo -> "Add file" -> "Upload files" -> trascina i
+10 file -> scrivi "Home + pelle agenzia" -> "Commit changes".
+
+Se nel repo trovi un file about.html, cancellalo: in questa versione
+non serve, l'About e' tornato dentro la home.
 
 
-PASSO 1
-Apri github.com e vai sul tuo repository del portfolio.
+LA STRUTTURA
+============
+Torna la HOME, come volevi:
+  1. Hero: sopratitolo con la lineetta, titolo grande, la tua frase
+  2. Galleria dei video
+  3. I TRE RISULTATI, enormi: 20% -> 70% · 32,8M · €110.000
+  4. CASE STUDIES: i quattro lavori, ognuno col suo numero a destra
+  5. About, CTA, Contatti
 
-PASSO 2
-In alto clicca il pulsante "Add file", poi "Upload files".
-
-PASSO 3
-Trascina dentro TUTTI e 10 i file di questa cartella insieme.
-(Non trascinare la cartella: apri la cartella, seleziona i file,
-e trascina quelli. GitHub non gestisce bene le cartelle.)
-Non caricare questo file COME-CARICARE.txt — solo gli altri 10.
-
-PASSO 4
-Scendi in fondo alla pagina. Nel riquadro scrivi:
-    Analytics PostHog + responsive + SEO
-Poi clicca il pulsante verde "Commit changes".
-
-PASSO 5
-Aspetta 1-2 minuti: GitHub Pages deve ripubblicare il sito.
+Ogni caso resta sulla sua pagina. Azzurro torna su azzurro-ads.html.
 
 
-CONTROLLO FINALE
-================
-1. Apri lucaluperto.it in una FINESTRA ANONIMA del browser
-   (importante: senza estensioni e senza adblocker, altrimenti
-   PostHog viene bloccato e sembra che non funzioni).
+LA PELLE
+========
+Presa dalla famiglia di dd.nyc, applicata al TUO marchio.
+Non e' una copia: niente arancione altrui, niente loro impaginato.
 
-2. Vai su PostHog, menu a sinistra, voce "Activity".
+  Sfondo        bianco puro      #ffffff
+  Testo         nero             #000000 / #1a1a1a
+  Superfici     grigio chiaro    #eeeeee
+  Secondario    grigio           #6b6b6b
+  Accento       il TUO vermiglio #c4341c
 
-3. Entro pochi secondi deve comparire una riga "$pageview".
-   Se compare, è fatto.
+  Un carattere solo: Archivo, ovunque. Via il serif.
+  Crenatura strettissima sui titoli: -5%.
+  Titolo fino a 80px, interlinea 0.94.
+  Numeri fino a 78px: sono l'elemento grafico della pagina.
+  Testata nera e fissa, con "Contact" a pillola arancione.
+  Pillole su bottoni, chip e badge. Spigolo vivo sulle superfici.
+  Sopratitoli con la lineetta davanti: —— Luca Luperto
 
-4. Prova anche a cliccare "Download CV" sul sito: in Activity
-   deve comparire l'evento "cv_download".
-
-
-COSA È CAMBIATO
-===============
-Files nuovi o modificati:
-
-  build.py            Aggiunto lo snippet PostHog nell'head di tutte
-                      le pagine, più una riga sulla privacy nel footer.
-                      IMPORTANTE: va caricato anche questo, altrimenti
-                      la prossima rigenerazione cancella tutto.
-
-  tip.js              Aggiunti gli eventi: cv_download, contact_click,
-                      outbound_click, reel_click, case_open, scroll_depth.
-
-  le 5 pagine .html   Rigenerate con lo snippet dentro.
-
-  style.css           Questa è la versione responsive che era rimasta
-  sitemap.xml         da caricare. Con questo upload vanno online anche
-  robots.txt          il fix mobile e i file per l'indicizzazione Google.
+  Contrasti verificati:
+    testo su bianco        17,4 : 1
+    secondario su bianco    5,33 : 1
+    accento su bianco       5,45 : 1
+    bianco sul bottone      5,45 : 1
+  Passano tutti.
 
 
-GLI EVENTI CHE VEDRAI IN POSTHOG
-================================
-  $pageview        ogni visita a una pagina
-  cv_download      qualcuno ha scaricato il CV
-  contact_click    qualcuno ha cliccato la tua email
-  outbound_click   qualcuno è andato sul tuo LinkedIn
-  reel_click       qualcuno ha aperto un video (IG, YouTube, TikTok)
-  case_open        qualcuno ha aperto un case study
-  scroll_depth     quanto in basso è arrivato (25 / 50 / 75 / 100%)
-
-L'ultimo è il più utile: su una pagina lunga come Azzurro ti dice
-se la leggono davvero o se la aprono e basta.
+COSA HO LASCIATO FUORI DI PROPOSITO
+===================================
+Lo scroll controllato da GSAP, il ticker e l'effetto macchina da
+scrivere. Su un portfolio letto per lo piu' da telefono lo scroll
+rubato e' il modo piu' rapido per far chiudere la pagina, e ti
+costerebbe i web vitals che PostHog ha appena iniziato a misurare.
 
 
-LE UTM PER LE CANDIDATURE
-=========================
-Quando mandi il sito con una candidatura, aggiungi i parametri:
-
-  https://lucaluperto.it/?utm_source=application&utm_medium=cv&utm_campaign=NOMEAZIENDA
-
-PostHog li raccoglie da solo. Poi in "Web analytics" filtri per
-utm_campaign e sai quale azienda ha aperto il portfolio, e quando.
+IL TITOLO IN HOME
+=================
+Ora dice: "Direct bookings went from 20% to 70% of revenue."
+Sotto, una riga che spiega i tre anni e le cinque leve.
+Sotto ancora, separata da un filetto, resta la tua frase sulla
+convinzione: non sparisce, smette solo di occupare il posto
+del numero.

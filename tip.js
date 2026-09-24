@@ -37,17 +37,13 @@
   document.documentElement.classList.add('anim-ready');
 
   // elements that fade+rise once, with a small stagger inside a group
+  // Direzione B: il movimento resta solo dove significa qualcosa — i numeri
+  // che salgono e le barre che crescono. Niente fade generico sui testi:
+  // il movimento applicato in modo uniforme e' decorazione, non informazione.
   var groups = [
-    ['.hero h1, .hero .lede, .hero .avail', 70],
-    ['.gal .tile', 60],
     ['.num-row .num', 80],
-    ['.case', 0],
-    ['.eyebrow, article h1, .meta, article > .lede', 60],
     ['.stats .stat', 60],
-    ['figure', 0],
-    ['.reels .reel', 45],
-    ['.works .work', 60],
-    ['article h2, article h3, article h4, article p, article ul, .insight, .todo, .brands', 0]
+    ['figure', 0]
   ];
   var seen = new WeakSet();
   groups.forEach(function (g) {

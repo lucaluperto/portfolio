@@ -68,9 +68,9 @@ def page(title, desc, body, current=None, canon="", jsonld=""):
 <link rel="canonical" href="https://lucaluperto.it/{canon}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Caveat:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23e4432a'/><path d='M16 20h15v44h28v16H16z' fill='white'/><path d='M84 80H69V36H41V20h43z' fill='white' fill-opacity='0.55'/></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='0' fill='%23c4341c'/><path d='M16 20h15v44h28v16H16z' fill='white'/><path d='M84 80H69V36H41V20h43z' fill='white' fill-opacity='0.55'/></svg>">
 {POSTHOG}
 </head>
 <body>
@@ -401,7 +401,7 @@ def kolms():
 
 <div class="stats">
   <div class="stat"><b>30+</b><span>hotel clients</span></div>
-  <div class="stat"><b>110000€</b><span>in contracts closed</span></div>
+  <div class="stat"><b>€110,000</b><span>in contracts closed</span></div>
   <div class="stat"><b>4</b><span>people in the studio</span></div>
   <div class="stat"><b>3</b><span>regions: Romagna, Dolomites, Austria</span></div>
 </div>
@@ -822,8 +822,9 @@ def index():
     body = f"""<section class="w">
 <div class="hero">
   <p class="hero-name">Luca Luperto — Growth &amp; Lifecycle Marketing</p>
-  <h1>Welcome to my journey through marketing.</h1>
-  <p class="lede">I believe in marketing where data and analysis come together: to read what people actually want, and to build the services and offers that improve the quality of their days.</p>
+  <h1>Direct bookings went from 20% to 70% of revenue.</h1>
+  <p class="lede">Three years owning the marketing of a 13-hotel group: paid acquisition, the CRM and email programme, content, influencer marketing, and a live format that ran four times.</p>
+  <p class="belief">I believe in marketing where data and analysis come together: to read what people actually want, and to build the services and offers that improve the quality of their days.</p>
   <span class="avail">Milan · EU citizen · Travel &amp; hospitality</span>
 </div>
 
@@ -832,7 +833,7 @@ def index():
 <div class="num-row">
   <div class="num"><b>20% &rarr; 70%</b><span>direct online bookings on revenue, 13 hotels, two years</span></div>
   <div class="num"><b>32.8M</b><span>organic Instagram views, zero paid amplification</span></div>
-  <div class="num"><b>110000€</b><span>in content contracts closed alongside a full-time job</span></div>
+  <div class="num"><b>€110,000</b><span>in content contracts closed alongside a full-time job</span></div>
 </div>
 
 <div class="sec-h"><h2>Case studies</h2><span>{len(CASES)} of {len(ALL_CASES)} published</span></div>
