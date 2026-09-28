@@ -529,3 +529,40 @@ header.site nav a:last-child { background:var(--accent); color:#fff; border-radi
 .rail-name { color: #fff; }
 .rail-name .mark { color: #fff; }
 .sum-name b { color: #fff; }
+
+/* ===================================================================
+   RIFINITURA — angoli morbidi e colonnina leggibile
+   =================================================================== */
+
+/* angoli morbidi sui blocchi; le pillole restano pillole */
+.tile, .work, .gal .tile, figure img, figure.photo img, figure.photo.two img,
+.insight, .todo, .brief, .cta, .contact, .about-side img, .portrait,
+details, table, .tip { border-radius: 14px; }
+.stat, .num { border-radius: 0; }
+.btn, .avail, .play, .sector, .rail-cv, .mobar a, .brands b { border-radius: 100px; }
+details { overflow: hidden; }
+.insight { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+
+/* la colonnina: il nero continua per tutta l'altezza della pagina,
+   anche quando l'elemento sticky e' piu' corto del contenuto */
+.shell { background: linear-gradient(to right, #000 0 250px, transparent 250px); }
+
+/* contrasti nella colonnina, misurati su nero:
+   #ffffff 21:1 · #e6e6e6 17:1 · #a5a5a5 8.6:1 — il precedente #6b6b6b era 3.4:1 */
+.rail .rail-name b, .rail .reading > b, .rail .sum-name b { color: #ffffff; }
+.rail .rail-in a { color: #e6e6e6; }
+.rail .rail-in a:hover { color: #ff8a6b; }
+.rail .rail-in a i { color: #a5a5a5; font-size: 12.5px; }
+.rail .rh, .rail .rail-name i, .rail .rail-foot, .rail .sum-lab { color: #a5a5a5; }
+.rail .rail-foot a { color: #e6e6e6; }
+.rail .rail-in a.rail-cv { color: #ffffff; }
+
+/* piu' respiro, meno senso di cose ammassate in alto */
+.rail-in { padding: 30px 22px 28px; }
+.rail .rh { margin: 30px 0 11px; letter-spacing: .2em; }
+.rail .reading { padding-left: 14px; border-left-width: 3px; }
+.rail .rail-in a { padding: 7px 0; }
+.rail .rail-cv { margin-top: 26px; padding: 14px 16px; }
+.rail .rail-foot { margin-top: 18px; line-height: 1.6; }
+
+@media (max-width: 860px) { .shell { background: none; } }

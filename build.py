@@ -182,7 +182,7 @@ def vbar(items, highlight=None, height=240, label_every=1, show_values=True, x_l
         h = max(ph * v / amax, 1.5)
         x = left + i * slot + (slot - bw) / 2
         y = top + ph - h
-        r = min(4, bw / 2)
+        r = min(9, bw / 2.2)   # angoli morbidi sulle punte delle barre
         cls = "bar" if (not highlight or i in highlight) else "bar mute"
         # rounded top only, anchored to baseline
         path = (f"M{x:.1f},{top+ph:.1f} V{y+r:.1f} Q{x:.1f},{y:.1f} {x+r:.1f},{y:.1f} "
@@ -206,7 +206,7 @@ def hbar(items, label_w=130):
     for i, (lab, v, tip) in enumerate(items):
         y = 4 + i * row
         w = max(pw * v / vmax, 2)
-        r = min(4, w / 2)
+        r = min(9, w / 2.2)   # angoli morbidi sulle punte delle barre
         x0 = label_w
         path = (f"M{x0},{y+4} H{x0+w-r:.1f} Q{x0+w:.1f},{y+4} {x0+w:.1f},{y+4+r} "
                 f"V{y+row-8-r} Q{x0+w:.1f},{y+row-8} {x0+w-r:.1f},{y+row-8} H{x0} Z")

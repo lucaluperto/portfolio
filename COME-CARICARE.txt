@@ -59,3 +59,20 @@ CHIUSURA ONESTA
   niente prenotazioni, niente reach. Quindi i due blocchi della
   pagina (le 12 settimane e l'anno delle creativita') NON si
   sommano, e questo e' scritto.
+
+
+RIFINITURA DEL 28/09 (in questo stesso pacchetto)
+=================================================
+- Angoli morbidi: 14px su riquadri, immagini, tabelle e blocchi.
+  Le pillole (bottoni, chip, badge) restano pillole.
+- Le punte delle barre dei grafici passano da 4px a 9px di raggio:
+  prima l'arrotondamento c'era ma non si vedeva.
+- LA COLONNINA NERA ora arriva in fondo alla pagina. Prima si
+  fermava dove finivano i link e sotto restava bianco: il nero e'
+  ora dipinto sulla griglia, non sull'elemento appiccicato.
+- Contrasti nella colonnina rifatti. Il grigio dei numeri accanto
+  ai lavori era #6b6b6b su nero = 3,4:1, sotto la soglia di 4,5.
+  Ora:  nome e "you are reading"  #ffffff  21:1
+        link dei lavori           #e6e6e6  17:1
+        numeri ed etichette       #a5a5a5  8,6:1
+- Piu' respiro fra i blocchi della colonnina.
