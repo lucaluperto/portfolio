@@ -1,75 +1,61 @@
-HOME + PELLE AGENZIA — COME CARICARE
-====================================
+AZZURRO — L'ANNO DELLE CREATIVITA' 2025
+=======================================
 
-⚠️ QUESTO PACCHETTO SOSTITUISCE I DUE PRECEDENTI.
-Se non hai ancora caricato "grafica-nuova.zip" o "architettura-4.zip",
-NON caricarli: carica solo questo. Contiene tutto, PostHog compreso.
+⚠️ SOSTITUISCE TUTTI I PACCHETTI PRECEDENTI. Carica solo questo.
+Se nel repo c'e' about.html, cancellalo.
 
-10 file (le due anteprima-*.png NON vanno caricate):
-
+14 file:
   build.py  style.css  tip.js
   index.html  azzurro-ads.html  comedy-week.html
   italy-food-prn.html  kolms-creative.html
   sitemap.xml  robots.txt
+  azzurro-creative-bands.csv
+  azzurro-creative-formats.csv
+  azzurro-creative-completion.csv
+  azzurro-creative-markets.csv
 
-github.com -> tuo repo -> "Add file" -> "Upload files" -> trascina i
-10 file -> scrivi "Home + pelle agenzia" -> "Commit changes".
-
-Se nel repo trovi un file about.html, cancellalo: in questa versione
-non serve, l'About e' tornato dentro la home.
-
-
-LA STRUTTURA
-============
-Torna la HOME, come volevi:
-  1. Hero: sopratitolo con la lineetta, titolo grande, la tua frase
-  2. Galleria dei video
-  3. I TRE RISULTATI, enormi: 20% -> 70% · 32,8M · €110.000
-  4. CASE STUDIES: i quattro lavori, ognuno col suo numero a destra
-  5. About, CTA, Contatti
-
-Ogni caso resta sulla sua pagina. Azzurro torna su azzurro-ads.html.
+github.com -> repo -> "Add file" -> "Upload files" -> trascina i 14
+file -> "Creative Meta 2025" -> "Commit changes".
 
 
-LA PELLE
-========
-Presa dalla famiglia di dd.nyc, applicata al TUO marchio.
-Non e' una copia: niente arancione altrui, niente loro impaginato.
+COSA HO AGGIUNTO ALLA PAGINA AZZURRO
+====================================
+Una sezione nuova, "The creative year: 296 ads, one account, 2025",
+subito prima di Comedy Week. Tre grafici nuovi, tutti generati dai
+CSV (che vanno caricati anche loro, altrimenti build.py non parte).
 
-  Sfondo        bianco puro      #ffffff
-  Testo         nero             #000000 / #1a1a1a
-  Superfici     grigio chiaro    #eeeeee
-  Secondario    grigio           #6b6b6b
-  Accento       il TUO vermiglio #c4341c
+RICONCILIAZIONE
+  296 ads · €63.734,75 · 20.101.726 impressioni · 236.350 clic.
+  Coincide al centesimo con il totale dell'account Meta. Gli scarti
+  (4 impressioni, 1 interazione, 6 riproduzioni) sono gli
+  arrotondamenti dichiarati nelle note del tuo file.
 
-  Un carattere solo: Archivo, ovunque. Via il serif.
-  Crenatura strettissima sui titoli: -5%.
-  Titolo fino a 80px, interlinea 0.94.
-  Numeri fino a 78px: sono l'elemento grafico della pagina.
-  Testata nera e fissa, con "Contact" a pillola arancione.
-  Pillole su bottoni, chip e badge. Spigolo vivo sulle superfici.
-  Sopratitoli con la lineetta davanti: —— Luca Luperto
+I TRE PUNTI
+  1. "Pushing harder made the media dearer, not the creative worse"
+     Il CPM sale a ogni scaglione di spesa: €2,97 sotto i 50€,
+     €5,24 sopra i 1.000. +76%. Il CPC +82%. Ma il CTR resta fra
+     1,34% e 1,63%. Non e' la creativita' che si logora: e' il
+     mezzo che diventa caro. Dichiarato il limite: senza reach e
+     frequenza e' "coerente con" la saturazione, non una prova.
 
-  Contrasti verificati:
-    testo su bianco        17,4 : 1
-    secondario su bianco    5,33 : 1
-    accento su bianco       5,45 : 1
-    bianco sul bottone      5,45 : 1
-  Passano tutti.
+  2. "Watching to the end barely predicts a click"
+     108 video con almeno 5.000 impressioni, divisi in quartili di
+     completamento. Il CPC migliora (€0,36 -> €0,27) ma il CTR non
+     sale pulito, e la correlazione fra arrivare al 95% e cliccare
+     e' r = +0,10. Superare i 3 secondi correla piu' del doppio
+     (r = +0,25). Il completamento e' quasi una metrica di vanita'.
 
+  3. "Where the money went" + "Germany cost three and a half times Italy"
+     Video = 91% della spesa, CTR 1,42% contro 0,41% del carosello.
+     Il post IG sponsorizzato con CPC €14,08 NON e' presentato come
+     un fallimento: e' un limite della misura, perche' il CTR qui
+     conta solo i clic sul link.
+     Germania: CTR migliore (1,59% contro 1,16%) ma CPM €10,21
+     contro €2,95. I tre CPC peggiori sopra i 500€ sono tutti
+     tedeschi, i cinque migliori tutti italiani.
 
-COSA HO LASCIATO FUORI DI PROPOSITO
-===================================
-Lo scroll controllato da GSAP, il ticker e l'effetto macchina da
-scrivere. Su un portfolio letto per lo piu' da telefono lo scroll
-rubato e' il modo piu' rapido per far chiudere la pagina, e ti
-costerebbe i web vitals che PostHog ha appena iniziato a misurare.
-
-
-IL TITOLO IN HOME
-=================
-Ora dice: "Direct bookings went from 20% to 70% of revenue."
-Sotto, una riga che spiega i tre anni e le cinque leve.
-Sotto ancora, separata da un filetto, resta la tua frase sulla
-convinzione: non sparisce, smette solo di occupare il posto
-del numero.
+CHIUSURA ONESTA
+  Un riquadro dice che l'export si ferma al clic: niente lead,
+  niente prenotazioni, niente reach. Quindi i due blocchi della
+  pagina (le 12 settimane e l'anno delle creativita') NON si
+  sommano, e questo e' scritto.

@@ -502,3 +502,30 @@ header.site nav a:last-child { background:var(--accent); color:#fff; border-radi
 /* la convinzione: resta, ma sotto il numero */
 .belief { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--line);
   max-width: 40em; font-size: 16px; line-height: 1.45; color: var(--dim); }
+
+/* la colonnina, in chiave agenzia: nera, testo chiaro, accento vivo */
+.rail { background: #000; border-right: none; }
+.rail-name b, .reading > b, .sum-name { color: #fff; }
+.rail-name i, .rh, .rail-foot, .sum-lab { color: #9a9a9a; }
+.rail-in a { color: #cbcbcb; letter-spacing: -0.01em; }
+.rail-in a:hover { color: #ff6a4d; }
+.rail-in a i { color: #6b6b6b; }
+.reading { border-left-color: var(--accent); }
+.rail-in a.rail-cv { background: var(--accent); color: #fff; border-radius: 100px; }
+.rail-foot a { color: #cbcbcb; }
+.raild > summary { background: #000; }
+.mobar { background: #000; border-top: none; }
+.mobar a { color: #fff; border-color: #444; }
+.mobar .rail-cv { background: var(--accent); border-color: var(--accent); }
+/* il riquadro dei venti secondi, in negativo */
+.brief { background: #000; border-color: #000; }
+.brief-h { color: #ff6a4d; }
+.brief dt { color: #9a9a9a; }
+.brief dt.warn { color: #ff6a4d; }
+.brief dd, .brief dd b { color: #fff; }
+
+/* la colonnina occupa tutta l'altezza, e il marchio si vede sul nero */
+@media (min-width: 861px) { .rail { min-height: 100vh; } }
+.rail-name { color: #fff; }
+.rail-name .mark { color: #fff; }
+.sum-name b { color: #fff; }

@@ -20,6 +20,43 @@ ALL_CASES = [
 PUBLISHED = {"comedy-week.html", "kolms-creative.html", "italy-food-prn.html", "azzurro-ads.html"}
 CASES = [c for c in ALL_CASES if c[0] in PUBLISHED]
 
+# Architettura 4: niente home. Il dominio apre dentro il caso Azzurro, che
+# vive su index.html; la colonnina persistente tiene tutto il resto.
+WORK = [
+    ("azzurro-ads.html", "Azzurro Club Vacanze", "20% \u2192 70%"),
+    ("comedy-week.html", "Comedy Week", "32.8M"),
+    ("italy-food-prn.html", "Italy Food PRN", "3.3 \u2192 16.4"),
+    ("kolms-creative.html", "Kolms Creative", "\u20ac110,000"),
+]
+WORK_NAME = {f: n for f, n, _ in WORK}
+
+RAILJS = """<script>
+(function () {
+  var d = document.querySelector('.raild');
+  if (!d) return;
+  function sync() {
+    if (window.innerWidth > 860) { d.setAttribute('open', ''); }
+    else { d.removeAttribute('open'); }
+  }
+  sync();
+  window.addEventListener('resize', sync);
+})();
+</script>"""
+
+
+PERSON = """<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Luca Luperto",
+"jobTitle":"Growth & Lifecycle Marketing","url":"https://lucaluperto.it/",
+"image":"https://lucaluperto.it/portrait.png","email":"mailto:lucaluperto99@gmail.com",
+"address":{"@type":"PostalAddress","addressLocality":"Milan","addressCountry":"IT"},
+"sameAs":["https://www.linkedin.com/in/lupertoluca"],
+"knowsAbout":["Growth marketing","Lifecycle marketing","CRM","Paid social","Google Ads","Email marketing","Hospitality marketing"],
+"alumniOf":[{"@type":"CollegeOrUniversity","name":"Universit\u00e0 Cattolica del Sacro Cuore"},
+{"@type":"CollegeOrUniversity","name":"Accademia di Belle Arti di Cuneo"}]}
+</script>
+"""
+
+
 def fmt(n):  # 32810205 -> 32,810,205
     return f"{n:,}"
 
@@ -46,9 +83,11 @@ posthog.init('phc_v96eDoyRSB9aAFanDd546SFta744k8Ng2YSQQuPfHL4T', {
 
 
 def page(title, desc, body, current=None, canon="", jsonld=""):
-    cur = ' aria-current="page"'
-    nav = "".join(
-        f'<a href="{f}" class="hide-sm"{cur if f == current else ""}>{n}</a>' for f, n in CASES
+    reading = WORK_NAME.get(current or "")
+    reading_block = (f'<p class="rh">You are reading</p>'
+                     f'<div class="reading"><b>{html.escape(reading)}</b></div>') if reading else ""
+    other_work = "".join(
+        f'<a href="{f}">{html.escape(n)} <i>{k}</i></a>' for f, n, k in WORK if f != (current or "")
     )
     return f"""<!doctype html>
 <html lang="en">
@@ -74,13 +113,27 @@ def page(title, desc, body, current=None, canon="", jsonld=""):
 {POSTHOG}
 </head>
 <body>
-<header class="site"><div class="w">
-  <a class="name" href="index.html"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true" width="24" height="24"><path d="M8 12h18v58h34v18H8z" fill="currentColor"/><path d="M92 88H74V30H40V12h52z" fill="var(--accent)"/></svg><span>{SITE}</span></a>
-  <nav>{nav}<a href="index.html#about">About</a><a href="{CV}">CV</a><a href="index.html#contact">Contact</a></nav>
-</div></header>
+<div class="shell">
+<aside class="rail"><details class="raild" open>
+<summary><span class="sum-name"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true" width="20" height="20"><path d="M8 12h18v58h34v18H8z" fill="currentColor"/><path d="M92 88H74V30H40V12h52z" fill="var(--accent)"/></svg><b>{SITE}</b></span><span class="sum-lab">Contents</span></summary>
+<div class="rail-in">
+  <a class="rail-name" href="index.html"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true" width="20" height="20"><path d="M8 12h18v58h34v18H8z" fill="currentColor"/><path d="M92 88H74V30H40V12h52z" fill="var(--accent)"/></svg><span><b>{SITE}</b><i>Growth &amp; lifecycle</i></span></a>
+  {reading_block}
+  <p class="rh">Also</p>
+  {other_work}
+  <p class="rh">More</p>
+  <a href="index.html#about">About</a>
+  <a class="rail-cv" href="{CV}">Download CV</a>
+  <p class="rail-foot"><a href="mailto:{EMAIL}">{EMAIL}</a><br>Milan &middot; EU citizen</p>
+</div>
+</details>
+{RAILJS}
+</aside>
 <main>
 {body}
 </main>
+</div>
+<div class="mobar"><a href="mailto:{EMAIL}">Write to me</a><a class="rail-cv" href="{CV}">Download CV</a></div>
 <footer class="site"><div class="w">
   <span><a href="mailto:{EMAIL}">{EMAIL}</a></span>
   <span>EU citizen · available 1 November 2026</span>
@@ -401,7 +454,7 @@ def kolms():
 
 <div class="stats">
   <div class="stat"><b>30+</b><span>hotel clients</span></div>
-  <div class="stat"><b>€110,000</b><span>in contracts closed</span></div>
+  <div class="stat"><b>110000€</b><span>in contracts closed</span></div>
   <div class="stat"><b>4</b><span>people in the studio</span></div>
   <div class="stat"><b>3</b><span>regions: Romagna, Dolomites, Austria</span></div>
 </div>
@@ -585,6 +638,62 @@ def azzurro():
     clicks = sum(int(r["clicks"]) for r in rows)
     impr = sum(int(r["impressions"]) for r in rows)
     peak_i = leads.index(max(leads))
+
+    # --- creativita' Meta 2025: 296 ads, l'anno intero, dall'API a livello di ad ---
+    bands = list(csv.DictReader(open("azzurro-creative-bands.csv", encoding="utf-8")))
+    fmts = list(csv.DictReader(open("azzurro-creative-formats.csv", encoding="utf-8")))
+    comp = list(csv.DictReader(open("azzurro-creative-completion.csv", encoding="utf-8")))
+    mkts = {m["market"]: m for m in csv.DictReader(open("azzurro-creative-markets.csv", encoding="utf-8"))}
+
+    band_lab = {"under 50": "< \u20ac50", "50-100": "\u20ac50\u2013100", "100-250": "\u20ac100\u2013250",
+                "250-500": "\u20ac250\u2013500", "500-1000": "\u20ac500\u20131k", "over 1000": "> \u20ac1k"}
+    band_fig = figure(
+        "Cost per thousand impressions, by how much a single ad spent",
+        "Every ad in the lead campaign, grouped by its own lifetime spend. Same account, same year, same audience pool.",
+        vbar([(band_lab[r["band"]], float(r["cpm_eur"]),
+               f'{band_lab[r["band"]]}: \u20ac{r["cpm_eur"]} CPM, \u20ac{r["cpc_eur"]} per click, '
+               f'CTR {r["ctr_pct"]}%, {r["ads"]} ads, \u20ac{int(r["spend_eur"]):,} spent')
+              for r in bands],
+             height=260, bar_max=52, value_idx={0, len(bands) - 1}),
+        table(["Spend of the ad", "Ads", "Spent \u20ac", "CTR %", "Cost per click \u20ac", "CPM \u20ac"],
+              [(band_lab[r["band"]], r["ads"], f'{int(r["spend_eur"]):,}', r["ctr_pct"], r["cpc_eur"], r["cpm_eur"])
+               for r in bands], numeric=(1, 2, 3, 4, 5)),
+    )
+
+    comp_lab = {"lowest": "least watched", "second": "2nd", "third": "3rd", "highest": "most watched"}
+    comp_fig = figure(
+        "Cost per click, by how far people watched",
+        "108 videos with at least 5,000 impressions, split into four equal groups by the share of viewers reaching 95% of the video.",
+        vbar([(comp_lab[r["quartile"]], float(r["cpc_eur"]),
+               f'{comp_lab[r["quartile"]]}: \u20ac{r["cpc_eur"]} per click, CTR {r["ctr_pct"]}%, '
+               f'{r["watched_to_95pct"]}% reached the end, {r["videos"]} videos')
+              for r in comp],
+             height=230, bar_max=52, value_idx={0, len(comp) - 1}),
+        table(["Group", "Videos", "Reached 95% of the video", "CTR %", "Cost per click \u20ac"],
+              [(comp_lab[r["quartile"]], r["videos"], r["watched_to_95pct"] + "%", r["ctr_pct"], r["cpc_eur"])
+               for r in comp], numeric=(1, 2, 3, 4)),
+    )
+
+    fmt_en = {"Video": "Video", "Carosello": "Carousel", "Carosello con video": "Carousel with video",
+              "Post IG statico": "Boosted IG post", "Immagine": "Image"}
+    for r in fmts:
+        r["format"] = fmt_en.get(r["format"], r["format"])
+    fmt_fig = figure(
+        "Click-through rate by format",
+        "All 296 ads. Video took 91% of the budget and earned it \u2014 with one measurement caveat below.",
+        hbar([(r["format"], float(r["ctr_pct"]),
+               f'{r["format"]}: CTR {r["ctr_pct"]}%, \u20ac{r["cpc_eur"]} per click, '
+               f'{r["ads"]} ads, \u20ac{int(r["spend_eur"]):,} ({r["spend_share_pct"]}% of spend)')
+              for r in fmts], label_w=150),
+        table(["Format", "Ads", "Spent \u20ac", "Share of spend", "CTR %", "Cost per click \u20ac", "CPM \u20ac"],
+              [(r["format"], r["ads"], f'{int(r["spend_eur"]):,}', r["spend_share_pct"] + "%",
+                r["ctr_pct"], r["cpc_eur"], r["cpm_eur"]) for r in fmts], numeric=(1, 2, 3, 4, 5, 6)),
+    )
+    b_lo, b_hi = bands[0], bands[-1]
+    cpm_rise = (float(b_hi["cpm_eur"]) / float(b_lo["cpm_eur"]) - 1) * 100
+    cpc_rise = (float(b_hi["cpc_eur"]) / float(b_lo["cpc_eur"]) - 1) * 100
+    de, it = mkts["Germany"], mkts["Italy"]
+
     lead_fig = figure(
         "Leads per week",
         "Twelve weeks of the same lead campaign, at a nearly flat weekly budget.",
@@ -650,7 +759,7 @@ def azzurro():
     body = f"""<article class="w col">
 <p class="eyebrow">Case study · Azzurro Club Vacanze · Dec 2022 – Feb 2026</p>
 {sector_line("azzurro-ads.html")}
-<h1>Azzurro Club Vacanze: owning the direct channel of 13 hotels</h1>
+<h1>Owning the direct channel of 13 hotels</h1>
 <div class="meta"><span><b>Role</b> digital marketing specialist</span><span><b>Portfolio</b> 13 hotels</span><span><b>Budget</b> ~200000€ per year</span></div>
 <p class="lede">After COVID the group needed its own booking channel instead of paying commission on most online sales. Direct online bookings went from 20% to 70% of revenue in two years. Five things did that work: advertising, email, content, influencer marketing and a national comedy programme. Here is each one, including the four weeks when the best campaign stopped working.</p>
 
@@ -659,6 +768,20 @@ def azzurro():
   <div class="stat"><b>€{spend:,.0f}</b><span>media spend on this campaign</span></div>
   <div class="stat"><b>€{spend/tot_leads:.2f}</b><span>average cost per lead</span></div>
   <div class="stat"><b>{clicks/impr*100:.2f}%</b><span>click-through rate, {impr/1e6:.1f}M impressions</span></div>
+</div>
+
+<div class="brief">
+  <p class="brief-h">In twenty seconds</p>
+  <dl>
+    <dt>What I owned</dt>
+    <dd>Paid acquisition, the CRM and email programme, content strategy, influencer marketing, and a four-edition live format.</dd>
+    <dt>What I changed</dt>
+    <dd>Moved demand off the OTAs, rebuilt the lifecycle around the booking window, and put a creator format in front of the funnel.</dd>
+    <dt>What happened</dt>
+    <dd><b>20% &rarr; 70%</b> of online revenue booked direct &middot; <b>&euro;1.49</b> per lead over twelve weeks &middot; <b>32.8M</b> organic views.</dd>
+    <dt class="warn">What I can't prove</dt>
+    <dd>Channel attribution was not in place in 2023, so no single lever can claim the rise. Each change below sits in the quarter it landed &mdash; nothing more is claimed.</dd>
+  </dl>
 </div>
 
 <h2>Context</h2>
@@ -734,6 +857,38 @@ def azzurro():
 <p>The brief was always the same: the property is the set, not the sponsor. A piece that could have been filmed anywhere sells nothing, so every collaboration had to use something only that hotel had.</p>
 <p>And the fee bought two things at once. The comedian performed live for guests, on the resort stage in summer and in the group's theatres in winter, so the same money paid for entertainment the guests had come for and for the content that travelled far beyond them. That double duty, not the view count, is what made the programme defensible in a budget meeting.</p>
 
+<h2>The creative year: 296 ads, one account, 2025</h2>
+<p>The twelve weeks above are one campaign. This is the whole of 2025, pulled from the Meta API at ad level and reconciled against the account totals: <b>296 ads, &euro;63,734.75, 20.1 million impressions, 236,350 link clicks</b>. It says three things a campaign report does not.</p>
+
+<div class="stats">
+  <div class="stat"><b>296</b><span>ads, archived and deleted included</span></div>
+  <div class="stat"><b>&euro;63,735</b><span>100% of the account's 2025 spend</span></div>
+  <div class="stat"><b>20.1M</b><span>impressions</span></div>
+  <div class="stat"><b>7.2%</b><span>of budget spent on ads under &euro;100 &mdash; 177 of 296</span></div>
+</div>
+
+<h3>Pushing harder made the media dearer, not the creative worse</h3>
+<p>Group every ad in the lead campaign by how much that single ad spent in its lifetime, and the cost of a thousand impressions climbs at every step: from &euro;{b_lo["cpm_eur"]} for the ads that spent under &euro;50 to &euro;{b_hi["cpm_eur"]} for those past &euro;1,000 &mdash; <b>{cpm_rise:.0f}% more</b>. Cost per click follows, &euro;{b_lo["cpc_eur"]} to &euro;{b_hi["cpc_eur"]}, <b>{cpc_rise:.0f}% more</b>.</p>
+{band_fig}
+<p>The click-through rate, meanwhile, barely moves: it sits between 1.34% and 1.63% across every band, and the most expensive band is not the worst at persuading. So the creative is not wearing out. What changes is the price of reaching the next person in the same pool.</p>
+<div class="insight"><p>This is the shape of audience saturation, and it has a practical consequence: an ad's cost per click is not a property of the ad. Judge two creatives that spent &euro;40 and &euro;4,000 on the same number and you will retire the one that was simply asked to do more. The honest limit: this export has no reach or frequency column, so the pattern is <em>consistent with</em> saturation, not proof of it.</p></div>
+
+<h3>Watching to the end barely predicts a click</h3>
+<p>Every video pitch ends with a completion rate. Here are 108 videos with at least 5,000 impressions, split into four equal groups by the share of viewers who reached 95% of the video.</p>
+{comp_fig}
+<p>Cost per click does improve across the groups, &euro;0.36 to &euro;0.27. But the click-through rate does not rise cleanly &mdash; the third group beats the most-watched one &mdash; and across all 108 videos the correlation between finishing and clicking is <b>r = +0.10</b>. Getting past the first three seconds correlates more than twice as strongly (r = +0.25).</p>
+<div class="insight"><p>Completion is close to a vanity metric here. The leverage is in the opening, not the ending, and a creative brief that optimises for watch-through is optimising the wrong half of the video.</p></div>
+
+<h3>Where the money went</h3>
+{fmt_fig}
+<p>Video took <b>91% of the spend</b> and returned the best click-through rate of any format, 1.42% against 0.41% for carousels. The outlier needs stating rather than celebrating: boosted static Instagram posts show a cost per click of &euro;14.08, but this whole page measures clicks <em>on the link</em>, and a boosted post collects its engagement on the post itself. That number condemns the measurement, not the creative.</p>
+
+<h3>Germany cost three and a half times Italy</h3>
+<p>Six ads ran in German, for &euro;{int(de["spend_eur"]):,}. They performed <b>better</b> on persuasion &mdash; CTR {de["ctr_pct"]}% against {it["ctr_pct"]}% in Italy &mdash; and still cost far more: &euro;{de["cpm_eur"]} per thousand impressions against &euro;{it["cpm_eur"]}, so &euro;{de["cpc_eur"]} a click against &euro;{it["cpc_eur"]}. Among the ads that spent over &euro;500, the three worst costs per click are all German and the five best are all Italian.</p>
+<div class="insight"><p>Read the creative and the market separately, or you retire a winning ad for being expensive in an expensive country.</p></div>
+
+{todo("This export stops at the click. It carries no leads, no bookings, no reach or frequency, so nothing here becomes a cost per booking — and the twelve-week dataset above is a different window and a different campaign. Joining media spend to confirmed stays is the thing I would build first, and it is why the two halves of this page cannot be added together.")}
+
 <h2>Comedy Week</h2>
 <p>The programme that came out of this: four editions, 28 comedians, 47 collaborations, <b>32.8 million organic Instagram views with no paid amplification</b>, on a dedicated budget of 40000€ per edition. That is 4.88€ per thousand views across the programme, and the seasonal split matters more than the average: summer editions delivered views at around 3€ per thousand, winter editions at over 12€.</p>
 <p>Tracking it video by video is what turned it from a nice number into a decision: five videos out of 43 carried 63% of the reach, two creators produced 70% of it, and the act with the worst debut became the best performer of the programme. <a href="comedy-week.html">The full analysis is here &rarr;</a></p>
@@ -761,7 +916,7 @@ def azzurro():
 <p class="muted">Figures from the campaign reporting sheet: twelve weeks, spend, impressions, clicks, landing page views and leads per week. <a href="azzurro-ads.csv">The weekly data is in this repo.</a></p>
 {next_links("azzurro-ads.html")}
 </article>"""
-    return page("Azzurro ads case study · Luca Luperto",
+    return page("Azzurro Club Vacanze case study \u00b7 Luca Luperto",
                 "9,134 leads in twelve weeks, and how weekly data showed the funnel broke on the page, not in the ads.",
                 body, "azzurro-ads.html", canon="azzurro-ads.html")
 
@@ -799,7 +954,7 @@ BRANDS = ["Azzurro Club Vacanze", "Italy Food PRN", "Kolms Creative", "Roseo Eur
           "Grand Hotel da Vinci", "Hotel Waldorf", "Das Post Hotel"]
 
 
-def index():
+def about():
     tiles = ""
     for size, href, vid, grad, big, name, note in TILES:
         inner = (f'<img loading="lazy" src="https://i.ytimg.com/vi/{vid}/maxresdefault.jpg" '
@@ -833,7 +988,7 @@ def index():
 <div class="num-row">
   <div class="num"><b>20% &rarr; 70%</b><span>direct online bookings on revenue, 13 hotels, two years</span></div>
   <div class="num"><b>32.8M</b><span>organic Instagram views, zero paid amplification</span></div>
-  <div class="num"><b>€110,000</b><span>in content contracts closed alongside a full-time job</span></div>
+  <div class="num"><b>&euro;110,000</b><span>in content contracts closed alongside a full-time job</span></div>
 </div>
 
 <div class="sec-h"><h2>Case studies</h2><span>{len(CASES)} of {len(ALL_CASES)} published</span></div>
@@ -841,7 +996,7 @@ def index():
 {coming_line}
 <div class="brands">{brands}</div>
 
-<div class="sec-h" id="about" style="margin-top:44px"><h2>About</h2><span>Milan &rarr; Dublin</span></div>
+<div class="sec-h" id="about" style="margin-top:44px"><h2>The route here</h2><span>Milan &rarr; Dublin</span></div>
 <div class="about">
   <div>
     <p>I did not arrive at marketing through a business degree. I spent my first years at art school in Cuneo, learning composition, light, and why one image holds a person for three seconds while the one next to it does not. Then a master's in Milan, where the question changed: what happens to that attention once a company needs it to become a decision.</p>
@@ -886,7 +1041,7 @@ def index():
   </div>
 </div>
 </section>"""
-    person = """<script type="application/ld+json">
+    _unused = """<script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","name":"Luca Luperto",
 "jobTitle":"Growth & Lifecycle Marketing","url":"https://lucaluperto.it/",
 "image":"https://lucaluperto.it/portrait.png","email":"mailto:lucaluperto99@gmail.com",
@@ -897,20 +1052,22 @@ def index():
 {"@type":"CollegeOrUniversity","name":"Accademia di Belle Arti di Cuneo"}]}
 </script>
 """
-    return page("Luca Luperto · Growth & Lifecycle Marketing",
-                "Case studies in growth, lifecycle and paid marketing for travel and hospitality: paid media, CRM, creator programmes and content operations.",
-                body, jsonld=person)
+    return page("Luca Luperto \u00b7 Growth & Lifecycle Marketing",
+                "Three years owning the marketing of a 13-hotel group: direct bookings from 20% to 70% of revenue, "
+                "9,134 leads at \u20ac1.49, and the weeks when the best campaign stopped working.",
+                body, "index.html", canon="", jsonld=PERSON)
 
 
 
 if __name__ == "__main__":
-    builders = {"comedy-week.html": comedy_week, "kolms-creative.html": kolms,
-                "italy-food-prn.html": ifp, "azzurro-ads.html": azzurro}
-    for name, fn in [("index.html", index)] + [(f, builders[f]) for f, _ in CASES]:
+    pages = [("index.html", about), ("azzurro-ads.html", azzurro),
+             ("comedy-week.html", comedy_week), ("italy-food-prn.html", ifp),
+             ("kolms-creative.html", kolms)]
+    for name, fn in pages:
         open(name, "w", encoding="utf-8").write(fn())
         print("wrote", name)
     today = __import__("datetime").date.today().isoformat()
-    urls = ["", ] + [f for f, _ in CASES]
+    urls = ["", "azzurro-ads.html", "comedy-week.html", "italy-food-prn.html", "kolms-creative.html"]
     sitemap = ('<?xml version="1.0" encoding="UTF-8"?>\n'
                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                + "".join(f"  <url><loc>https://lucaluperto.it/{u}</loc><lastmod>{today}</lastmod>"
