@@ -626,3 +626,51 @@ details { overflow: hidden; }
   .consent { left: 12px; right: 12px; bottom: 74px; width: auto; padding: 17px 17px 15px; }
   .consent p { font-size: 13.5px; margin-bottom: 13px; }
 }
+
+/* ---------- modulo di contatto ---------- */
+/* I bottoni e i link restano a sinistra sotto il testo; il modulo occupa
+   la colonna destra, cioe' lo spazio che prima era solo una pila di link. */
+.contact-links { flex-direction: row; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+
+.cform {
+  border: 1px solid var(--line); border-radius: 14px; background: var(--surface);
+  padding: 22px 22px 20px; display: flex; flex-direction: column; min-width: 0;
+}
+.cform-h {
+  font-family: "Archivo", system-ui, sans-serif; font-size: 10.5px; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--accent);
+  margin: 0 0 16px;
+}
+.cform label {
+  font-family: "Archivo", system-ui, sans-serif; font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--dim);
+  margin-bottom: 6px;
+}
+.cform label i { font-style: normal; text-transform: none; letter-spacing: 0; opacity: .7; }
+.cform input[type="text"], .cform input[type="email"], .cform textarea {
+  font-family: inherit; font-size: 15px; color: var(--fg);
+  background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+  padding: 11px 13px; margin-bottom: 16px; width: 100%; min-width: 0;
+}
+.cform textarea { resize: vertical; line-height: 1.5; }
+.cform input:focus-visible, .cform textarea:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent);
+}
+.cform input::placeholder { color: var(--dim); opacity: .65; }
+.cform button[type="submit"] {
+  font-family: "Archivo", system-ui, sans-serif; font-size: 13px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  align-self: flex-start; cursor: pointer; margin-top: 2px;
+}
+.cform button[disabled] { opacity: .55; cursor: default; }
+.cform-s { font-size: 14px; color: var(--dim); margin: 12px 0 0; }
+.cform-s.bad { color: var(--accent); }
+.cform p:not(.cform-h):not(.cform-s) { font-size: 15px; color: var(--body); margin: 0; }
+
+/* trappola per i robot: deve esistere nel DOM ma non vedersi mai */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+@media (max-width: 860px) {
+  .contact { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .cform { padding: 18px 18px 16px; }
+}

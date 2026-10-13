@@ -1,50 +1,85 @@
-FASCIA COOKIE — TESTO CLASSICO
-==============================
+MODULO DI CONTATTO + FASCIA COOKIE CLASSICA
+===========================================
 
-Stessi 7 file. Cambia il testo della fascia e la riga
-del footer: registro standard da informativa cookie,
-non piu' in prima persona.
+Ora sono 8 file: si aggiunge tip.js.
+
+  build.py  style.css  tip.js
+  index.html  azzurro-ads.html  comedy-week.html
+  italy-food-prn.html  kolms-creative.html
+
+Apri lo zip, trascina gli 8 file, "Commit changes".
 
 
-LA FASCIA, ORA
---------------
+1. IL MODULO DI CONTATTO
+------------------------
+Nella sezione Contact della home, a destra del testo.
+Nome, email, messaggio, piu' "How did you get here?"
+che e' facoltativo.
+
+Collegato al tuo endpoint Formspree:
+  https://formspree.io/f/xzedjggb
+
+COSA FA DI DIVERSO DA UN MODULO QUALSIASI
+  C'e' un campo nascosto "source" che viaggia insieme al
+  messaggio e porta la provenienza della visita. Se uno
+  arriva da
+    lucaluperto.it/?utm_source=application&utm_campaign=hotelbeds
+  tu ricevi l'email con dentro:
+    source=application / campaign=hotelbeds
+  Cioe' sai da quale candidatura e' arrivato chi ti scrive,
+  dentro l'email stessa, senza aprire PostHog.
+  Se non c'e' nessuna UTM, scrive il sito di provenienza,
+  e se non c'e' nemmeno quello scrive "direct".
+
+DOVE STA QUEL DATO
+  In sessionStorage, non in localStorage: vive quanto la
+  scheda del browser e muore quando la chiude. E' un dato
+  di servizio, non una traccia che sopravvive al consenso.
+
+ALTRE COSE DENTRO
+  - l'invio non ricarica la pagina: al posto del modulo
+    compare "Thank you"
+  - se Formspree non risponde, compare una riga che dice
+    di scrivere all'indirizzo email, e il bottone torna
+    cliccabile
+  - campo trappola invisibile contro i robot (_gotcha)
+  - evento form_submit verso PostHog, ma solo se chi
+    scrive aveva accettato i cookie
+  - i tre bottoni (email, CV, LinkedIn) restano: chi
+    preferisce scrivere a mano puo' ancora farlo
+
+VERIFICATO IN AUTOMATICO
+  invio completo        parte verso l'endpoint giusto
+  contenuto             nome, email, messaggio e campagna
+                        arrivano tutti nel corpo
+  campi vuoti           l'invio non parte
+  conferma              il modulo diventa "Thank you"
+
+Quello che NON ho potuto provare e' l'invio vero verso
+Formspree: ho simulato la risposta del server. Il primo
+invio di prova dopo il caricamento tocca a te.
+
+
+2. LA FASCIA COOKIE, IN REGISTRO CLASSICO
+-----------------------------------------
   COOKIES
-
   This site uses cookies and similar technologies to
   measure traffic and to record anonymous browsing
   sessions. Analytics only: no advertising, no profiling,
   no data sold or shared with third parties. Processing
   takes place in the European Union. You can change your
   choice at any time from the link in the footer.
+  [ Reject ]  [ Accept ]
 
-  [ Reject ]   [ Accept ]
-
-Prima diceva "I measure my own site..." con i bottoni
-"No thanks" e "Allow".
-
-
-IL FOOTER, ORA
---------------
-  "Cookies: analytics and anonymous session recording,
-   processed in the EU, with your consent. No advertising,
-   no profiling."  + link "Cookie settings"
-
-Il link si chiamava "Change" e ora si chiama
-"Cookie settings", che e' la dicitura che la gente cerca.
+Il link nel footer ora si chiama "Cookie settings".
+Il comportamento non cambia: PostHog parte solo dopo
+"Accept".
 
 
-COSA NON E' CAMBIATO
---------------------
-Il comportamento. PostHog non parte finche' non c'e'
-un "Accept", il rifiuto ripulisce i cookie ph_*, la
-scelta regge al ricaricamento. Ricontrollato tutto:
-sei passaggi, tutti passati.
-
-
-I 7 FILE
---------
-  build.py  style.css
-  index.html  azzurro-ads.html  comedy-week.html
-  italy-food-prn.html  kolms-creative.html
-
-Apri lo zip, trascina i 7 file, "Commit changes".
+DOPO IL CARICAMENTO, DUE MINUTI DI PROVA
+----------------------------------------
+1. apri lucaluperto.it in finestra anonima
+2. accetta o rifiuta i cookie
+3. scorri fino a Contact e mandati un messaggio di prova
+4. controlla che l'email arrivi e che dentro ci sia la
+   riga "source"

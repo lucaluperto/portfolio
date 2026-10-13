@@ -1121,12 +1121,28 @@ def about():
   <div>
     <p>I am looking for a <b>growth, lifecycle or CRM role</b> in Dublin, or remote within CET, in a company with its own users and its own data. Available from 1 November 2026, EU citizen, no sponsorship needed.</p>
     <p class="muted">Happy to walk through any of these case studies in a call, including the parts that did not work.</p>
+    <div class="contact-links">
+      <a class="btn" href="mailto:{EMAIL}">{EMAIL}</a>
+      <a class="btn" href="{CV}">Download CV (PDF)</a>
+      <a class="btn" href="{LINKEDIN}">LinkedIn</a>
+    </div>
   </div>
-  <div class="contact-links">
-    <a class="btn" href="mailto:{EMAIL}">{EMAIL}</a>
-    <a class="btn" href="{CV}">Download CV (PDF)</a>
-    <a class="btn" href="{LINKEDIN}">LinkedIn</a>
-  </div>
+  <form class="cform" id="cform" action="https://formspree.io/f/xzedjggb" method="POST">
+    <p class="cform-h">Send a message</p>
+    <label for="cf-name">Name</label>
+    <input id="cf-name" name="name" type="text" autocomplete="name" required>
+    <label for="cf-email">Email</label>
+    <input id="cf-email" name="email" type="email" autocomplete="email" required>
+    <label for="cf-msg">Message</label>
+    <textarea id="cf-msg" name="message" rows="4" required></textarea>
+    <label for="cf-how">How did you get here? <i>optional</i></label>
+    <input id="cf-how" name="how" type="text" autocomplete="off" placeholder="A job ad, LinkedIn, someone sent it to you\u2026">
+    <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input type="hidden" name="source" id="cf-src" value="">
+    <input type="hidden" name="_subject" value="lucaluperto.it \u2014 new message">
+    <button class="btn primary" type="submit">Send</button>
+    <p class="cform-s" id="cform-s" role="status" aria-live="polite"></p>
+  </form>
 </div>
 </section>"""
     _unused = """<script type="application/ld+json">

@@ -149,3 +149,66 @@
     }
   }, { passive: true });
 })();
+
+/* ---------- modulo di contatto ---------- */
+(function () {
+  // La prima provenienza della visita, tenuta solo per la durata della scheda:
+  // sessionStorage e non localStorage, cosi' e' un dato di servizio che muore
+  // con la visita e non una traccia che sopravvive al consenso.
+  function firstTouch() {
+    try {
+      var k = 'll-src';
+      var had = sessionStorage.getItem(k);
+      if (had) { return had; }
+      var q = new URLSearchParams(location.search);
+      var bits = [];
+      ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (n) {
+        var v = q.get(n);
+        if (v) { bits.push(n.replace('utm_', '') + '=' + v); }
+      });
+      if (!bits.length && document.referrer) { bits.push('referrer=' + document.referrer); }
+      var val = bits.join(' / ') || 'direct';
+      sessionStorage.setItem(k, val);
+      return val;
+    } catch (e) { return 'unknown'; }
+  }
+
+  var src = firstTouch();
+
+  var f = document.getElementById('cform');
+  if (!f) { return; }
+
+  var hid = document.getElementById('cf-src');
+  if (hid) { hid.value = src; }
+
+  var out = document.getElementById('cform-s');
+  var btn = f.querySelector('button[type="submit"]');
+
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!f.checkValidity()) { f.reportValidity(); return; }
+    btn.disabled = true;
+    out.className = 'cform-s';
+    out.textContent = 'Sending…';
+
+    fetch(f.action, {
+      method: 'POST',
+      body: new FormData(f),
+      headers: { 'Accept': 'application/json' }
+    }).then(function (r) {
+      if (!r.ok) { throw new Error('http ' + r.status); }
+      f.innerHTML = '<p class="cform-h">Thank you</p>' +
+        '<p>Your message is on its way. I usually reply within a day.</p>';
+      if (window.posthog && typeof window.posthog.capture === 'function') {
+        window.posthog.capture('form_submit', {
+          from: (location.pathname.split('/').pop() || 'index.html'),
+          source: src
+        });
+      }
+    }).catch(function () {
+      btn.disabled = false;
+      out.className = 'cform-s bad';
+      out.textContent = 'That did not go through. Write to lucaluperto99@gmail.com instead.';
+    });
+  });
+})();
