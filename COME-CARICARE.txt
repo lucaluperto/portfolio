@@ -76,3 +76,17 @@ RIFINITURA DEL 28/09 (in questo stesso pacchetto)
         link dei lavori           #e6e6e6  17:1
         numeri ed etichette       #a5a5a5  8,6:1
 - Piu' respiro fra i blocchi della colonnina.
+
+
+AGGIUNTA DEL 13/10 (stesso pacchetto, nessun file in piu')
+==========================================================
+Riga privacy nel footer, su tutte e cinque le pagine:
+
+  prima:  "Anonymous analytics, hosted in the EU..."
+  ora:    "Anonymous analytics and session recording,
+           hosted in the EU. No ads, no third-party tracking."
+
+Serve perche' hai acceso Session Replay su PostHog. In Europa la
+registrazione della sessione va dichiarata a chi visita il sito:
+non e' una formalita', e' la differenza fra una cosa in regola e
+una che non lo e'. Ora e' dichiarata.

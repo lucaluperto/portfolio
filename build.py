@@ -138,7 +138,7 @@ def page(title, desc, body, current=None, canon="", jsonld=""):
   <span><a href="mailto:{EMAIL}">{EMAIL}</a></span>
   <span>EU citizen · available 1 November 2026</span>
   <span><a href="{LINKEDIN}">LinkedIn</a></span>
-  <span>Anonymous analytics, hosted in the EU. No ads, no third-party tracking.</span>
+  <span>Anonymous analytics and session recording, hosted in the EU. No ads, no third-party tracking.</span>
 </div></footer>
 {jsonld}<script src="tip.js"></script>
 </body>
