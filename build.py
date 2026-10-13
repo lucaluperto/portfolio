@@ -72,13 +72,85 @@ def short(n):
 
 # PostHog — plain string (NOT an f-string): the snippet is full of { } braces
 # and inside an f-string they would have to be doubled. Keep it here, insert
-# it into the template with {POSTHOG}. Project 281900, EU Cloud.
-POSTHOG = """<script>
-!function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-posthog.init('phc_v96eDoyRSB9aAFanDd546SFta744k8Ng2YSQQuPfHL4T', {
-  api_host: 'https://eu.i.posthog.com',
-  defaults: '2026-05-30'
-})
+# it into the template with {CONSENT}. Project 281900, EU Cloud.
+CONSENT = """<script>
+(function () {
+  var KEY = 'll-analytics';
+  var started = false;
+
+  function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function write(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+  // PostHog non viene nemmeno scaricato finche' non c'e' un si'.
+  function start() {
+    if (started) return;
+    started = true;
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_v96eDoyRSB9aAFanDd546SFta744k8Ng2YSQQuPfHL4T', {
+      api_host: 'https://eu.i.posthog.com',
+      defaults: '2026-05-30'
+    })
+  }
+
+  // un no non lascia in giro quello che un si' precedente aveva scritto
+  function purge() {
+    try {
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n.indexOf('ph_') === 0) {
+          document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        }
+      });
+      Object.keys(localStorage).forEach(function (k) {
+        if (k.indexOf('ph_') === 0) { localStorage.removeItem(k); }
+      });
+    } catch (e) {}
+  }
+
+  function ask() {
+    if (document.querySelector('.consent')) return;
+    var w = document.createElement('div');
+    w.className = 'consent';
+    w.setAttribute('role', 'dialog');
+    w.setAttribute('aria-label', 'Analytics on this site');
+    w.innerHTML =
+      '<p>I measure my own site \u2014 page views and anonymous session recordings \u2014 ' +
+      'to learn which parts get read. Hosted in the EU, no ads, nothing shared. ' +
+      'The same thing I would set up for a client.</p>' +
+      '<div class="consent-b">' +
+      '<button type="button" data-a="no">No thanks</button>' +
+      '<button type="button" class="yes" data-a="yes">Allow</button>' +
+      '</div>';
+    document.body.appendChild(w);
+    requestAnimationFrame(function () { w.classList.add('in'); });
+    w.addEventListener('click', function (e) {
+      var t = e.target;
+      while (t && t !== w && !(t.tagName === 'BUTTON' && t.getAttribute('data-a'))) { t = t.parentNode; }
+      if (!t || t === w) return;
+      var v = t.getAttribute('data-a');
+      write(v);
+      w.parentNode.removeChild(w);
+      if (v === 'yes') { start(); } else { purge(); }
+    });
+  }
+
+  // il link "Change" nel footer: ritirare il consenso costa un clic come darlo
+  window.llAnalytics = function () {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    ask();
+  };
+
+  var c = read();
+  if (c === 'yes') {
+    start();
+  } else if (c !== 'no') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', ask);
+    } else {
+      ask();
+    }
+  }
+})();
 </script>"""
 
 
@@ -110,7 +182,7 @@ def page(title, desc, body, current=None, canon="", jsonld=""):
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Caveat:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='0' fill='%23c4341c'/><path d='M16 20h15v44h28v16H16z' fill='white'/><path d='M84 80H69V36H41V20h43z' fill='white' fill-opacity='0.55'/></svg>">
-{POSTHOG}
+{CONSENT}
 </head>
 <body>
 <div class="shell">
@@ -138,7 +210,7 @@ def page(title, desc, body, current=None, canon="", jsonld=""):
   <span><a href="mailto:{EMAIL}">{EMAIL}</a></span>
   <span>EU citizen · available 1 November 2026</span>
   <span><a href="{LINKEDIN}">LinkedIn</a></span>
-  <span>Anonymous analytics and session recording, hosted in the EU. No ads, no third-party tracking.</span>
+  <span>Analytics and session recording, hosted in the EU, only if you allow it. No ads, no third-party tracking. <button type="button" class="clink" onclick="llAnalytics()">Change</button></span>
 </div></footer>
 {jsonld}<script src="tip.js"></script>
 </body>

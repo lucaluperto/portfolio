@@ -566,3 +566,49 @@ details { overflow: hidden; }
 .rail .rail-foot { margin-top: 18px; line-height: 1.6; }
 
 @media (max-width: 860px) { .shell { background: none; } }
+
+
+/* ---------- consenso ---------- */
+/* Piccola, in basso a sinistra, non copre il contenuto e non blocca la lettura.
+   I due bottoni hanno la stessa dimensione e lo stesso peso: rifiutare deve
+   costare quanto accettare, altrimenti non e' una scelta. */
+.consent {
+  position: fixed; right: 18px; bottom: 18px; z-index: 60;
+  width: min(430px, calc(100vw - 36px));
+  background: var(--bg); color: var(--body);
+  border: 1px solid var(--line); border-radius: 14px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .14);
+  padding: 20px 20px 18px;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .22s ease-out, transform .22s ease-out;
+}
+.consent.in { opacity: 1; transform: none; }
+.consent p { margin: 0 0 15px; font-size: 14px; line-height: 1.55; color: var(--body); }
+.consent-b { display: flex; gap: 10px; }
+.consent-b button {
+  flex: 1 1 0; cursor: pointer;
+  font-family: "Archivo", system-ui, sans-serif; font-size: 14px; font-weight: 600;
+  padding: 11px 14px; border-radius: 100px;
+  border: 1px solid var(--fg); background: transparent; color: var(--fg);
+  transition: filter .15s, background .15s;
+}
+.consent-b button.yes { background: var(--accent); border-color: var(--accent); color: #fff; }
+.consent-b button:hover { filter: brightness(1.08); }
+.consent-b button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* "Change" nel footer: un bottone che si comporta da link */
+.clink {
+  font: inherit; background: none; border: 0; padding: 0;
+  color: inherit; text-decoration: underline; cursor: pointer;
+}
+.clink:hover { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .consent { transition: none; opacity: 1; transform: none; }
+}
+/* sotto gli 861px compare la barra fissa in basso: la fascia le sta sopra,
+   non davanti, altrimenti nasconde "Download CV" */
+@media (max-width: 860px) {
+  .consent { left: 12px; right: 12px; bottom: 74px; width: auto; padding: 17px 17px 15px; }
+  .consent p { font-size: 13.5px; margin-bottom: 13px; }
+}
