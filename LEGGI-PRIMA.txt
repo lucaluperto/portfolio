@@ -1,60 +1,50 @@
-SOLO IL CONSENSO — 7 FILE
-=========================
+FASCIA COOKIE — TESTO CLASSICO
+==============================
 
-Questo NON sostituisce quello che hai gia' caricato.
-Si aggiunge sopra, e cambia solo i file che servono.
-
-I 7 file da trascinare:
-
-  build.py
-  style.css
-  index.html
-  azzurro-ads.html
-  comedy-week.html
-  italy-food-prn.html
-  kolms-creative.html
-
-I CSV, tip.js, sitemap.xml e robots.txt NON servono:
-sono identici a quelli gia' online. Lasciali stare.
+Stessi 7 file. Cambia il testo della fascia e la riga
+del footer: registro standard da informativa cookie,
+non piu' in prima persona.
 
 
-COME
-----
-1. github.com -> il tuo repository
-2. Add file -> Upload files
-3. Trascina i 7 file
-4. Scrivi:  Consenso ai cookie
-5. Commit changes
-6. Aspetta due minuti
+LA FASCIA, ORA
+--------------
+  COOKIES
+
+  This site uses cookies and similar technologies to
+  measure traffic and to record anonymous browsing
+  sessions. Analytics only: no advertising, no profiling,
+  no data sold or shared with third parties. Processing
+  takes place in the European Union. You can change your
+  choice at any time from the link in the footer.
+
+  [ Reject ]   [ Accept ]
+
+Prima diceva "I measure my own site..." con i bottoni
+"No thanks" e "Allow".
 
 
-COME CAPIRE SE E' ANDATA
-------------------------
-Apri lucaluperto.it in una finestra ANONIMA (o fai un
-ricaricamento forzato: Ctrl+Maiusc+R, su Mac Cmd+Maiusc+R).
-La finestra anonima e' piu' sicura, perche' il browser
-normale ti tiene in memoria la versione vecchia.
+IL FOOTER, ORA
+--------------
+  "Cookies: analytics and anonymous session recording,
+   processed in the EU, with your consent. No advertising,
+   no profiling."  + link "Cookie settings"
 
-Devi vedere DUE cose:
-
-  1. In basso a destra, una fascia bianca con dentro
-     "No thanks" e "Allow".
-
-  2. Scorri fino in fondo alla pagina. Il footer deve dire:
-     "...hosted in the EU, ONLY IF YOU ALLOW IT."
-     e accanto deve esserci un link "Change".
-
-Se vedi ancora "Anonymous analytics and session recording,
-hosted in the EU." senza "only if you allow it", allora
-il caricamento non e' passato: riprova, oppure mandami
-uno screenshot e guardiamo insieme.
+Il link si chiamava "Change" e ora si chiama
+"Cookie settings", che e' la dicitura che la gente cerca.
 
 
-PERCHE' C'ERANO DUE PACCHETTI UGUALI
-------------------------------------
-Colpa mia: te li ho mandati a venti minuti di distanza con
-lo stesso nome. Il primo aggiungeva solo la riga sulla
-registrazione delle sessioni nel footer. Il secondo, questo,
-mette PostHog dietro consenso. Quello che hai caricato e'
-il primo, e ha funzionato: la sezione sui 296 ads e'
-online, l'ho verificata.
+COSA NON E' CAMBIATO
+--------------------
+Il comportamento. PostHog non parte finche' non c'e'
+un "Accept", il rifiuto ripulisce i cookie ph_*, la
+scelta regge al ricaricamento. Ricontrollato tutto:
+sei passaggi, tutti passati.
+
+
+I 7 FILE
+--------
+  build.py  style.css
+  index.html  azzurro-ads.html  comedy-week.html
+  italy-food-prn.html  kolms-creative.html
+
+Apri lo zip, trascina i 7 file, "Commit changes".

@@ -107,19 +107,32 @@ CONSENT = """<script>
     } catch (e) {}
   }
 
+  function syncLink() {
+    var b = document.querySelector('.clink');
+    if (b) { b.hidden = !read(); }
+  }
+
   function ask() {
-    if (document.querySelector('.consent')) return;
+    var ex = document.querySelector('.consent');
+    if (ex) {                      // gia' aperta: la faccio notare invece di non fare nulla
+      ex.classList.remove('pulse');
+      void ex.offsetWidth;
+      ex.classList.add('pulse');
+      return;
+    }
     var w = document.createElement('div');
     w.className = 'consent';
     w.setAttribute('role', 'dialog');
-    w.setAttribute('aria-label', 'Analytics on this site');
+    w.setAttribute('aria-label', 'Cookies');
     w.innerHTML =
-      '<p>I measure my own site \u2014 page views and anonymous session recordings \u2014 ' +
-      'to learn which parts get read. Hosted in the EU, no ads, nothing shared. ' +
-      'The same thing I would set up for a client.</p>' +
+      '<p class="consent-h">Cookies</p>' +
+      '<p>This site uses cookies and similar technologies to measure traffic and to ' +
+      'record anonymous browsing sessions. Analytics only: no advertising, no profiling, ' +
+      'no data sold or shared with third parties. Processing takes place in the European ' +
+      'Union. You can change your choice at any time from the link in the footer.</p>' +
       '<div class="consent-b">' +
-      '<button type="button" data-a="no">No thanks</button>' +
-      '<button type="button" class="yes" data-a="yes">Allow</button>' +
+      '<button type="button" data-a="no">Reject</button>' +
+      '<button type="button" class="yes" data-a="yes">Accept</button>' +
       '</div>';
     document.body.appendChild(w);
     requestAnimationFrame(function () { w.classList.add('in'); });
@@ -130,6 +143,7 @@ CONSENT = """<script>
       var v = t.getAttribute('data-a');
       write(v);
       w.parentNode.removeChild(w);
+      syncLink();
       if (v === 'yes') { start(); } else { purge(); }
     });
   }
@@ -140,15 +154,17 @@ CONSENT = """<script>
     ask();
   };
 
-  var c = read();
-  if (c === 'yes') {
-    start();
-  } else if (c !== 'no') {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', ask);
-    } else {
-      ask();
-    }
+  function boot() {
+    syncLink();
+    var c = read();
+    if (c === 'yes') { start(); }
+    else if (c !== 'no') { ask(); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
   }
 })();
 </script>"""
@@ -210,7 +226,7 @@ def page(title, desc, body, current=None, canon="", jsonld=""):
   <span><a href="mailto:{EMAIL}">{EMAIL}</a></span>
   <span>EU citizen · available 1 November 2026</span>
   <span><a href="{LINKEDIN}">LinkedIn</a></span>
-  <span>Analytics and session recording, hosted in the EU, only if you allow it. No ads, no third-party tracking. <button type="button" class="clink" onclick="llAnalytics()">Change</button></span>
+  <span>Cookies: analytics and anonymous session recording, processed in the EU, with your consent. No advertising, no profiling. <button type="button" class="clink" onclick="llAnalytics()" hidden>Cookie settings</button></span>
 </div></footer>
 {jsonld}<script src="tip.js"></script>
 </body>
