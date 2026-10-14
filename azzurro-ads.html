@@ -16,8 +16,9 @@
 <link rel="canonical" href="https://lucaluperto.it/azzurro-ads.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Caveat:wght@500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");</script>
+<link rel="stylesheet" href="b2.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='0' fill='%23c4341c'/><path d='M16 20h15v44h28v16H16z' fill='white'/><path d='M84 80H69V36H41V20h43z' fill='white' fill-opacity='0.55'/></svg>">
 <script>
 (function () {
@@ -116,34 +117,19 @@
 </script>
 </head>
 <body>
-<div class="shell">
-<aside class="rail"><details class="raild" open>
-<summary><span class="sum-name"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true" width="20" height="20"><path d="M8 12h18v58h34v18H8z" fill="currentColor"/><path d="M92 88H74V30H40V12h52z" fill="var(--accent)"/></svg><b>Luca Luperto</b></span><span class="sum-lab">Contents</span></summary>
-<div class="rail-in">
-  <a class="rail-name" href="index.html"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true" width="20" height="20"><path d="M8 12h18v58h34v18H8z" fill="currentColor"/><path d="M92 88H74V30H40V12h52z" fill="var(--accent)"/></svg><span><b>Luca Luperto</b><i>Growth &amp; lifecycle</i></span></a>
-  <p class="rh">You are reading</p><div class="reading"><b>Azzurro Club Vacanze</b></div>
-  <p class="rh">Also</p>
-  <a href="comedy-week.html">Comedy Week <i>32.8M</i></a><a href="italy-food-prn.html">Italy Food PRN <i>3.3 → 16.4</i></a><a href="kolms-creative.html">Kolms Creative <i>€110,000</i></a>
-  <p class="rh">More</p>
-  <a href="index.html#about">About</a>
-  <a class="rail-cv" href="cv-luca-luperto.pdf">Download CV</a>
-  <p class="rail-foot"><a href="mailto:lucaluperto99@gmail.com">lucaluperto99@gmail.com</a><br>Milan &middot; EU citizen</p>
-</div>
-</details>
-<script>
-(function () {
-  var d = document.querySelector('.raild');
-  if (!d) return;
-  function sync() {
-    if (window.innerWidth > 860) { d.setAttribute('open', ''); }
-    else { d.removeAttribute('open'); }
-  }
-  sync();
-  window.addEventListener('resize', sync);
-})();
-</script>
-</aside>
-<main>
+<div class="page">
+<div class="aura" aria-hidden="true"></div>
+
+<header class="site"><div class="w">
+  <a class="name" href="index.html">Luca Luperto</a>
+  <nav aria-label="Main">
+    <a href="index.html#work">Work</a>
+    <a href="index.html#about">About</a>
+    <a class="pill dark" href="index.html#contact">Write to me</a>
+  </nav>
+</div></header>
+
+<main class="case-page">
 <article class="w col">
 <p class="eyebrow">Case study · Azzurro Club Vacanze · Dec 2022 – Feb 2026</p>
 <p class="sector">Hospitality · Paid media · CRM</p>
@@ -329,14 +315,15 @@
 <div class="next"><a href="kolms-creative.html">&larr; Kolms Creative</a><a href="index.html">All work</a><a href="comedy-week.html">Comedy Week &rarr;</a></div>
 </article>
 </main>
-</div>
-<div class="mobar"><a href="mailto:lucaluperto99@gmail.com">Write to me</a><a class="rail-cv" href="cv-luca-luperto.pdf">Download CV</a></div>
+
 <footer class="site"><div class="w">
   <span><a href="mailto:lucaluperto99@gmail.com">lucaluperto99@gmail.com</a></span>
   <span>EU citizen · available 1 November 2026</span>
   <span><a href="https://www.linkedin.com/in/lupertoluca">LinkedIn</a></span>
   <span>Cookies: analytics and anonymous session recording, processed in the EU, with your consent. No advertising, no profiling. <button type="button" class="clink" onclick="llAnalytics()" hidden>Cookie settings</button></span>
 </div></footer>
+</div>
 <script src="tip.js"></script>
+<script src="b2.js"></script>
 </body>
 </html>
