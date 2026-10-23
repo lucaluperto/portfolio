@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email & CRM · Azzurro Club Vacanze · Luca Luperto</title>
+<meta name="description" content="Promotional and transactional email ran on separate stacks: the lifecycle as it actually ran, and what I would change.">
+<meta property="og:title" content="Email & CRM · Azzurro Club Vacanze · Luca Luperto">
+<meta property="og:description" content="Promotional and transactional email ran on separate stacks: the lifecycle as it actually ran, and what I would change.">
+<meta property="og:image" content="https://lucaluperto.it/og.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lucaluperto.it/azzurro-email-crm.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Luca Luperto">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://lucaluperto.it/azzurro-email-crm.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");if(/^(localhost|127\.0\.0\.1|)$/.test(location.hostname))document.documentElement.classList.add("dev");</script>
+<link rel="stylesheet" href="b2.css?v=8">
+<link rel="stylesheet" href="palettes.css?v=4">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='0' fill='%23c4341c'/><path d='M16 20h15v44h28v16H16z' fill='white'/><path d='M84 80H69V36H41V20h43z' fill='white' fill-opacity='0.55'/></svg>">
+<script>
+(function () {
+  var KEY = 'll-analytics';
+  var started = false;
+
+  function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function write(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+  // PostHog non viene nemmeno scaricato finche' non c'e' un si'.
+  function start() {
+    if (started) return;
+    started = true;
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_v96eDoyRSB9aAFanDd546SFta744k8Ng2YSQQuPfHL4T', {
+      api_host: 'https://eu.i.posthog.com',
+      defaults: '2026-05-30'
+    })
+  }
+
+  // un no non lascia in giro quello che un si' precedente aveva scritto
+  function purge() {
+    try {
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n.indexOf('ph_') === 0) {
+          document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        }
+      });
+      Object.keys(localStorage).forEach(function (k) {
+        if (k.indexOf('ph_') === 0) { localStorage.removeItem(k); }
+      });
+    } catch (e) {}
+  }
+
+  function syncLink() {
+    var b = document.querySelector('.clink');
+    if (b) { b.hidden = !read(); }
+  }
+
+  function ask() {
+    var ex = document.querySelector('.consent');
+    if (ex) {                      // gia' aperta: la faccio notare invece di non fare nulla
+      ex.classList.remove('pulse');
+      void ex.offsetWidth;
+      ex.classList.add('pulse');
+      return;
+    }
+    var w = document.createElement('div');
+    w.className = 'consent';
+    w.setAttribute('role', 'dialog');
+    w.setAttribute('aria-label', 'Cookies');
+    w.innerHTML =
+      '<p class="consent-h">Cookies</p>' +
+      '<p>This site uses cookies and similar technologies to measure traffic and to ' +
+      'record anonymous browsing sessions. Analytics only: no advertising, no profiling, ' +
+      'no data sold or shared with third parties. Processing takes place in the European ' +
+      'Union. You can change your choice at any time from the link in the footer.</p>' +
+      '<div class="consent-b">' +
+      '<button type="button" data-a="no">Reject</button>' +
+      '<button type="button" class="yes" data-a="yes">Accept</button>' +
+      '</div>';
+    document.body.appendChild(w);
+    requestAnimationFrame(function () { w.classList.add('in'); });
+    w.addEventListener('click', function (e) {
+      var t = e.target;
+      while (t && t !== w && !(t.tagName === 'BUTTON' && t.getAttribute('data-a'))) { t = t.parentNode; }
+      if (!t || t === w) return;
+      var v = t.getAttribute('data-a');
+      write(v);
+      w.parentNode.removeChild(w);
+      syncLink();
+      if (v === 'yes') { start(); } else { purge(); }
+    });
+  }
+
+  // il link "Change" nel footer: ritirare il consenso costa un clic come darlo
+  window.llAnalytics = function () {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    ask();
+  };
+
+  function boot() {
+    syncLink();
+    var c = read();
+    if (c === 'yes') { start(); }
+    else if (c !== 'no') { ask(); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+</head>
+<body>
+<div class="page">
+<div class="aura" aria-hidden="true"></div>
+
+<header class="site"><div class="w">
+  <a class="name" href="index.html">Luca Luperto</a>
+  <nav aria-label="Main">
+    <a href="index.html#work">Work</a>
+    <a href="index.html#about">About</a>
+    <a class="pill dark" href="index.html#contact">Write to me</a>
+  </nav>
+</div></header>
+
+<main class="case-page">
+<article class="w col">
+<p class="eyebrow">Case study · Azzurro Club Vacanze · Email marketing &amp; CRM</p>
+<nav class="series" aria-label="Azzurro Club Vacanze case studies"><a href="azzurro-ads.html">Overview</a><a href="azzurro-lead-campaign.html">Lead campaign</a><a href="azzurro-email-crm.html" aria-current="page">Email &amp; CRM</a><a href="azzurro-ads-2025.html">296 ads in 2025</a><a href="azzurro-content.html">Content &amp; social</a></nav>
+<p class="sector">Hospitality · Lifecycle · CRM</p>
+<h1>Two email systems, one guest</h1>
+<p class="lede">The most valuable audience a hotel group has is the guests it already served, and the most expensive mistake is letting them come back through a platform that charges commission on a relationship the hotel had already earned. Email was the channel meant to stop that. Read as a system, it was two systems.</p>
+
+
+
+<figure><figcaption>Two email systems, one guest</figcaption><div class="sub">The group ran promotional and transactional email on separate stacks, with separate senders and separate data.</div><div class="table-scroll"><table><thead><tr><th class=""></th><th class="">Promotional (MailUp)</th><th class="">Transactional (booking system &amp; app)</th></tr></thead><tbody><tr><td class="">Sender</td><td class="">one group address</td><td class="">one address per property</td></tr><tr><td class="">Register</td><td class="">informal, emoji, imperatives</td><td class="">formal, no emoji, no urgency</td></tr><tr><td class="">Personalisation</td><td class="">none</td><td class="">name, property, dates, party size, loyalty credit</td></tr><tr><td class="">Job</td><td class="">generate a lead for the call centre</td><td class="">run the stay and the loyalty loop</td></tr></tbody></table></div></figure>
+
+<p><b>The promotional side</b> went out from one group address through MailUp: seasonal offers, one property or the whole group, written in the second person singular with emoji in the subject line, built on four levers that never changed — a time hook ("September is the new August"), an experiential promise, a stack of imperatives, and scarcity. <b>The transactional side</b> lived in the booking system and the app, with a different sender per property, a formal register, and something the promotional side never had: the guest's name, their property, their dates, the size of the party, their loyalty credit.</p>
+
+<h3>The lifecycle, as it actually ran</h3>
+<ul class="clean">
+  <li><b>Cold opt-in list</b> &rarr; seasonal offer emails, no personalisation at all.</li>
+  <li><b>Quote not converted</b> &rarr; two dedicated flows: a "price freeze" that re-confirmed the old quote's conditions in full, and a re-activation that quoted back the exact period and party size the guest had asked for the year before. This was the sharpest piece of the whole programme.</li>
+  <li><b>Booked</b> &rarr; pre-check-in data collection and menu pre-ordering through the app.</li>
+  <li><b>Checked out</b> &rarr; loyalty credit plus a stay questionnaire.</li>
+  <li><b>Loyal guest</b> &rarr; a "customer week" with earned access ("you are receiving this because you qualified"), a 25% welcome-back discount on a second stay, and a 10€ referral for bringing a friend.</li>
+</ul>
+
+<div class="insight"><p>The best sequence in the group was the cross-sell cascade. The thank-you email at the end of the summer season closed the sea cycle and, in the same message, sold autumn weekends with theme parks and reminded the guest that the ski price freeze expired on 30 September. Three offers stacked on a contact who had just walked out of the hotel, at the one moment their goodwill was highest.</p></div>
+
+<h3>How the database was segmented</h3>
+<p>Five axes, of very different maturity: <b>season and product</b> (Riviera in summer, mountains in winter, with spring bridges and an autumn tail deliberately covered), <b>property</b> — each single-hotel email carried that property's own phone number so the call landed where the availability was, <b>party composition</b>, mostly families with children but explicitly broadened in the mountains to couples and groups of friends, <b>lifecycle stage</b> as above, and <b>price tier</b>, with the same database worked at 1,599–2,399€ a room in August, 999€ a week in September, and 139–299€ tickets for bridges and snow.</p>
+
+<h3>What was wrong with it, and what I would change</h3>
+<ul class="clean">
+  <li><b>The data was in the wrong system.</b> Everything needed to personalise a promotional email — which property, which dates, how many people, how much credit — existed in the transactional side and was never used by the promotional side. That is the single biggest miss, and it is an integration problem before it is a marketing one.</li>
+  <li><b>No email could close a sale.</b> Even the fixed-price offer ended in "request a quote": every campaign fed the call centre. It fits a family audience that wants to speak to a person, but it makes revenue dependent on phone capacity and hides where the funnel actually leaks.</li>
+  <li><b>Pressure instead of testing.</b> The same spring creative went out four times in six weeks. There was no subject line test, no holdout, no frequency cap by segment: volume was doing the work that segmentation should have done.</li>
+  <li><b>Two voices, sometimes in one email.</b> The promotional register switched between informal and formal mid-message, with recurring typos in the templates. Small, but it is the kind of detail that tells a guest which emails are automated.</li>
+</ul>
+<p class="muted">What I cannot show here: database size, open and click rates and the revenue attributed to email are in the group's systems and I did not keep a copy. The structure above is reconstructed from the campaigns themselves.</p>
+
+<div class="next"><a href="azzurro-lead-campaign.html">&larr; Lead campaign</a><a href="index.html">All work</a><a href="azzurro-ads-2025.html">296 ads in 2025 &rarr;</a></div>
+</article>
+</main>
+
+<footer class="site"><div class="w">
+  <span><a href="mailto:lucaluperto99@gmail.com">lucaluperto99@gmail.com</a></span>
+  <span>EU citizen · available 1 November 2026</span>
+  <span><a href="https://www.linkedin.com/in/lupertoluca">LinkedIn</a></span>
+  <span>Cookies: analytics and anonymous session recording, processed in the EU, with your consent. No advertising, no profiling. <button type="button" class="clink" onclick="llAnalytics()" hidden>Cookie settings</button></span>
+</div></footer>
+</div>
+<script src="tip.js"></script>
+<script src="b2.js?v=3"></script>
+</body>
+</html>

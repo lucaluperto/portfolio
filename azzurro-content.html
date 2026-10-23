@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content & social · Azzurro Club Vacanze · Luca Luperto</title>
+<meta name="description" content="One positioning per property, creators with a job, and what 496 pieces on the group's social channels returned.">
+<meta property="og:title" content="Content & social · Azzurro Club Vacanze · Luca Luperto">
+<meta property="og:description" content="One positioning per property, creators with a job, and what 496 pieces on the group's social channels returned.">
+<meta property="og:image" content="https://lucaluperto.it/og.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lucaluperto.it/azzurro-content.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="author" content="Luca Luperto">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://lucaluperto.it/azzurro-content.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("js");if(/^(localhost|127\.0\.0\.1|)$/.test(location.hostname))document.documentElement.classList.add("dev");</script>
+<link rel="stylesheet" href="b2.css?v=8">
+<link rel="stylesheet" href="palettes.css?v=4">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='0' fill='%23c4341c'/><path d='M16 20h15v44h28v16H16z' fill='white'/><path d='M84 80H69V36H41V20h43z' fill='white' fill-opacity='0.55'/></svg>">
+<script>
+(function () {
+  var KEY = 'll-analytics';
+  var started = false;
+
+  function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function write(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+  // PostHog non viene nemmeno scaricato finche' non c'e' un si'.
+  function start() {
+    if (started) return;
+    started = true;
+    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}p||((p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",p.onerror=function(){p=null},(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r));var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+    posthog.init('phc_v96eDoyRSB9aAFanDd546SFta744k8Ng2YSQQuPfHL4T', {
+      api_host: 'https://eu.i.posthog.com',
+      defaults: '2026-05-30'
+    })
+  }
+
+  // un no non lascia in giro quello che un si' precedente aveva scritto
+  function purge() {
+    try {
+      document.cookie.split(';').forEach(function (c) {
+        var n = c.split('=')[0].trim();
+        if (n.indexOf('ph_') === 0) {
+          document.cookie = n + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        }
+      });
+      Object.keys(localStorage).forEach(function (k) {
+        if (k.indexOf('ph_') === 0) { localStorage.removeItem(k); }
+      });
+    } catch (e) {}
+  }
+
+  function syncLink() {
+    var b = document.querySelector('.clink');
+    if (b) { b.hidden = !read(); }
+  }
+
+  function ask() {
+    var ex = document.querySelector('.consent');
+    if (ex) {                      // gia' aperta: la faccio notare invece di non fare nulla
+      ex.classList.remove('pulse');
+      void ex.offsetWidth;
+      ex.classList.add('pulse');
+      return;
+    }
+    var w = document.createElement('div');
+    w.className = 'consent';
+    w.setAttribute('role', 'dialog');
+    w.setAttribute('aria-label', 'Cookies');
+    w.innerHTML =
+      '<p class="consent-h">Cookies</p>' +
+      '<p>This site uses cookies and similar technologies to measure traffic and to ' +
+      'record anonymous browsing sessions. Analytics only: no advertising, no profiling, ' +
+      'no data sold or shared with third parties. Processing takes place in the European ' +
+      'Union. You can change your choice at any time from the link in the footer.</p>' +
+      '<div class="consent-b">' +
+      '<button type="button" data-a="no">Reject</button>' +
+      '<button type="button" class="yes" data-a="yes">Accept</button>' +
+      '</div>';
+    document.body.appendChild(w);
+    requestAnimationFrame(function () { w.classList.add('in'); });
+    w.addEventListener('click', function (e) {
+      var t = e.target;
+      while (t && t !== w && !(t.tagName === 'BUTTON' && t.getAttribute('data-a'))) { t = t.parentNode; }
+      if (!t || t === w) return;
+      var v = t.getAttribute('data-a');
+      write(v);
+      w.parentNode.removeChild(w);
+      syncLink();
+      if (v === 'yes') { start(); } else { purge(); }
+    });
+  }
+
+  // il link "Change" nel footer: ritirare il consenso costa un clic come darlo
+  window.llAnalytics = function () {
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    ask();
+  };
+
+  function boot() {
+    syncLink();
+    var c = read();
+    if (c === 'yes') { start(); }
+    else if (c !== 'no') { ask(); }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+</head>
+<body>
+<div class="page">
+<div class="aura" aria-hidden="true"></div>
+
+<header class="site"><div class="w">
+  <a class="name" href="index.html">Luca Luperto</a>
+  <nav aria-label="Main">
+    <a href="index.html#work">Work</a>
+    <a href="index.html#about">About</a>
+    <a class="pill dark" href="index.html#contact">Write to me</a>
+  </nav>
+</div></header>
+
+<main class="case-page">
+<article class="w col">
+<p class="eyebrow">Case study · Azzurro Club Vacanze · Content, creators &amp; social</p>
+<nav class="series" aria-label="Azzurro Club Vacanze case studies"><a href="azzurro-ads.html">Overview</a><a href="azzurro-lead-campaign.html">Lead campaign</a><a href="azzurro-email-crm.html">Email &amp; CRM</a><a href="azzurro-ads-2025.html">296 ads in 2025</a><a href="azzurro-content.html" aria-current="page">Content &amp; social</a></nav>
+<p class="sector">Hospitality · Content · Creators · Social</p>
+<h1>Content, creators and the channels</h1>
+<p class="lede">Thirteen properties, one group, and a decision to make every week: what does each hotel publish, and what is it supposed to sell. The content was treated as a product with a job, not as a calendar to fill.</p>
+<div class="stats">
+  <div class="stat"><b>496</b><span>pieces published on Instagram in three years</span></div>
+  <div class="stat"><b>~8,300</b><span>Instagram followers gained</span></div>
+  <div class="stat"><b>6,109</b><span>YouTube subscribers gained</span></div>
+  <div class="stat"><b>0 &rarr; 2,404</b><span>TikTok, started from zero</span></div>
+</div>
+
+<h2>Content strategy: the product and the results</h2>
+
+<ul class="clean">
+  <li><b>One positioning per property.</b> A four star family village on the Adriatic and a five star hotel in the Dolomites share an owner and nothing else. Each had its own formats, its own promise and its own season to defend.</li>
+  <li><b>Formats chosen by what they had to do:</b> the room and the pool to answer "where will I sleep", food and experiences to answer "what will we do", staff and events to answer "will I feel welcome".</li>
+  <li><b>Production planned around the season</b>, so the summer offer was shot in spring and the winter campaign had images that were not two years old.</li>
+  <li><b>The result the content was measured on</b> was not engagement: it was whether the direct channel kept growing. Over two years it went from 20% to 70% of online revenue.</li>
+</ul>
+
+<h2>Influencer marketing</h2>
+<p>Talent was used for two different jobs, and keeping them separate is what made the budget work. Creators with a local audience to make a specific property credible in a specific season, and national comedians to give the group reach it could not buy at that price anywhere else.</p>
+<p>The brief was always the same: the property is the set, not the sponsor. A piece that could have been filmed anywhere sells nothing, so every collaboration had to use something only that hotel had.</p>
+<p>And the fee bought two things at once. The comedian performed live for guests, on the resort stage in summer and in the group's theatres in winter, so the same money paid for entertainment the guests had come for and for the content that travelled far beyond them. That double duty, not the view count, is what made the programme defensible in a budget meeting.</p>
+
+<h2>The social channels, and what they returned</h2>
+<p>Between December 2022 and January 2026 the group's Instagram account published <b>496 pieces</b>: 258 reels and 238 photo posts, roughly one every two days for three years, across 13 properties and two seasons a year. Over the same period the audience grew by about <b>8,300 followers on Instagram, 6,109 subscribers on YouTube and 5,000 on Facebook</b>, while TikTok was started from zero and reached 2,404.</p>
+<p>And here is the uncomfortable comparison: the audience the group owns, against the reach the comedy programme produced on the same channels.</p>
+<figure><figcaption>Owned audience vs borrowed reach</figcaption><div class="sub">Followers on the group account, against the views the comedy programme produced on each channel.</div><svg class="chart chart-h" viewBox="0 0 680 144" role="img"><text x="120" y="22.0" text-anchor="end">Instagram</text><path class="bar" d="M130,8 H516 Q520,8 520,12 V26 Q520,30 516,30 H130 Z" tabindex="0" data-tip="Instagram: 32,810,205 programme views, ~10,300 followers"/><text class="val" x="528.0" y="22.0">32,810,205</text><text x="120" y="56.0" text-anchor="end">YouTube</text><path class="bar" d="M130,42 H158.8 Q162.8,42 162.8,46 V60 Q162.8,64 158.8,64 H130 Z" tabindex="0" data-tip="YouTube: 2,759,817 programme views"/><text class="val" x="170.8" y="56.0">2,759,817</text><text x="120" y="90.0" text-anchor="end">TikTok</text><path class="bar" d="M130,76 H131 Q132,76 132,77 V97 Q132,98 131,98 H130 Z" tabindex="0" data-tip="TikTok: 51,248 programme views, 2,404 followers"/><text class="val" x="140.0" y="90.0">51,248</text><text x="120" y="124.0" text-anchor="end">Facebook</text><path class="bar" d="M130,110 H131 Q132,110 132,111 V131 Q132,132 131,132 H130 Z" tabindex="0" data-tip="Facebook: 19,807 programme views"/><text class="val" x="140.0" y="124.0">19,807</text></svg>
+<details><summary>Show data table</summary><div class="table-scroll"><table><thead><tr><th class="">Channel</th><th class="n">Followers gained</th><th class="n">Posts published</th><th class="n">Views from the programme</th></tr></thead><tbody><tr><td class="">Instagram</td><td class="n">+8,300 &rarr; 10,300</td><td class="n">496</td><td class="n">32,810,205</td></tr><tr><td class="">YouTube</td><td class="n">+6,109</td><td class="n">—</td><td class="n">2,759,817</td></tr><tr><td class="">Facebook</td><td class="n">+5,000</td><td class="n">—</td><td class="n">19,807</td></tr><tr><td class="">TikTok</td><td class="n">2,404 (from zero)</td><td class="n">—</td><td class="n">51,248</td></tr></tbody></table></div></details></figure>
+<div class="insight"><p>32.8 million views on Instagram sit next to an account with about 10,000 followers. Reach borrowed from creators and from the algorithm does not turn itself into an owned audience: people watch the comedian, laugh, and scroll on. Treating those views as audience growth would have been the easy mistake; the honest reading is that they were paid media at organic prices, to be judged on bookings, not on followers.</p></div>
+<p>It also explains where effort stopped going. TikTok and Facebook received the same videos and returned roughly 0.2% of the programme's reach, so they stayed a by-product of one upload rather than a channel with its own production. YouTube behaved differently: sporadic, but when a video landed it landed hard, with one piece doing 1.4 million views there against 1.3 million on Instagram.</p>
+
+<h2>The videos that travelled</h2>
+<p>The comedy programme is a case study of its own, so these are the best performing pieces <b>without a comedian in them</b>: ordinary resort content, published in the normal editorial rhythm, between 200,000 and 868,000 views each. They are the proof that the account could travel on its own material, at a fraction of the reach but at a fraction of the cost.</p>
+<div class="reels"><a class="reel" href="https://www.instagram.com/azzurroclubvacanze/reel/DNz7z-o2OI8/"><span class="rank">#1</span>
+      <b>Resort content</b><span class="muted">August 2025</span>
+      <span class="reel-n">868K views</span>
+      <span class="go">Watch on Instagram &#8599;</span></a><a class="reel" href="https://www.instagram.com/azzurroclubvacanze/reel/DQvpLzcD0UA/"><span class="rank">#2</span>
+      <b>Resort content</b><span class="muted">November 2025</span>
+      <span class="reel-n">693K views</span>
+      <span class="go">Watch on Instagram &#8599;</span></a><a class="reel" href="https://www.instagram.com/azzurroclubvacanze/reel/DSITLCJjylN/"><span class="rank">#3</span>
+      <b>Resort content</b><span class="muted">December 2025</span>
+      <span class="reel-n">311K views</span>
+      <span class="go">Watch on Instagram &#8599;</span></a><a class="reel" href="https://www.instagram.com/azzurroclubvacanze/reel/DSkDTFCDZki/"><span class="rank">#4</span>
+      <b>Resort content</b><span class="muted">December 2025</span>
+      <span class="reel-n">231K views</span>
+      <span class="go">Watch on Instagram &#8599;</span></a><a class="reel" href="https://www.instagram.com/azzurroclubvacanze/reel/DRfHBqDk4SO/"><span class="rank">#5</span>
+      <b>Resort content</b><span class="muted">November 2025</span>
+      <span class="reel-n">224K views</span>
+      <span class="go">Watch on Instagram &#8599;</span></a><a class="reel" href="https://www.instagram.com/azzurroclubvacanze/reel/DSC7saIjANA/"><span class="rank">#6</span>
+      <b>Resort content</b><span class="muted">December 2025</span>
+      <span class="reel-n">200K views</span>
+      <span class="go">Watch on Instagram &#8599;</span></a></div>
+
+<div class="next"><a href="azzurro-ads-2025.html">&larr; 296 ads in 2025</a><a href="index.html">All work</a><a href="comedy-week.html">Comedy Week &rarr;</a></div>
+</article>
+</main>
+
+<footer class="site"><div class="w">
+  <span><a href="mailto:lucaluperto99@gmail.com">lucaluperto99@gmail.com</a></span>
+  <span>EU citizen · available 1 November 2026</span>
+  <span><a href="https://www.linkedin.com/in/lupertoluca">LinkedIn</a></span>
+  <span>Cookies: analytics and anonymous session recording, processed in the EU, with your consent. No advertising, no profiling. <button type="button" class="clink" onclick="llAnalytics()" hidden>Cookie settings</button></span>
+</div></footer>
+</div>
+<script src="tip.js"></script>
+<script src="b2.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+/* lucaluperto.it — palette "Mare": the Adriatic in the evening. Loaded after b2.css.
+   Coral pencil, deep-sea feature panel, dark ink so white text on ink stays legible.
+   Contrast: --pencil-text on white 5.0:1 · white on --blue 6.0:1 · --name on --bg 3.3:1 (large text). */
+:root {
+  --bg: #f3f7f8; --panel: #e6eef1; --panel-line: #d6e2e6; --surface: #ffffff;
+  --ink: #0f2a33; --body: #33505a; --dim: #557079; --line: #d3dfe3; --line-2: #b9cbd1;
+  --pencil: #ff6f59; --pencil-text: #c2412c;
+  --blue: #0f6b7a;
+  --name: #f0503a;
+  --aura-1: rgba(255,111,89,.18); --aura-2: rgba(15,107,122,.20);
+}
+
+/* the pencil marks and the background glow follow the palette */
+.pen, .pen-h { stroke: var(--pencil); }
+.aura { background:
+  radial-gradient(38% 36% at 80% 20%, var(--aura-1), transparent 70%),
+  radial-gradient(40% 40% at 10% 40%, var(--aura-2), transparent 70%); }
+.hero2 h1 em { color: var(--name); }
+
+/* chart colours, validated (dataviz validator, light surface): sea passes the chroma floor,
+   sea↔coral CVD ΔE 13.6, both ≥3:1 against white */
+:root { --chart: #00849b; --chart-hot: #f0503a; --chart-mute: #c6dde2; }
